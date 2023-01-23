@@ -1,0 +1,886 @@
+\documentclass{beamer}
+
+\input{settings.tex}
+
+
+\title{Introduction}
+\subtitle{Computational Intelligence, Lecture 2}
+\author{by Sergei Savin}
+\centering
+\date{\mydate}
+
+
+
+\begin{document}
+\maketitle
+
+
+
+\begin{frame}{Least squares at a glance (1)}
+	% \framesubtitle{Parameter estimation}
+	\begin{flushleft}
+		
+		Consider the following problem: find $\bo{x}$ that minimizes $|| \bo{A}\bo{x} - \bo{y} ||_2$. This is the \emph{least squares problem}. 
+		
+		\bigskip
+		
+		\begin{itemize}
+			\item The value $\bo{e} = \bo{A}\bo{x} - \bo{y}$ is called residual.
+			
+			\item $|| \cdot ||_2$ is a second norm, where $|| \bo{e} ||_2 = \sqrt{\bo{e}\T\bo{e}}$
+			
+			\item Least squares problem is about finding \emph{least residual solution}.
+		\end{itemize}
+		
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{Least squares at a glance (2)}
+	% \framesubtitle{Parameter estimation}
+	\begin{flushleft}
+		
+		Minimum of $||\bo{e}||_2 = ||\bo{A}\bo{x} - \bo{y}||_2$ is achieved at the same $\bo{x}$ as minimum of $(\bo{A}\bo{x} - \bo{y})^\top(\bo{A}\bo{x} - \bo{y})$. With that in mind, let us find its extremum:
+		%
+		\begin{equation}
+			\frac{d}{dt} \left( (\bo{A}\bo{x} - \bo{y})^\top(\bo{A}\bo{x} - \bo{y}) \right) 
+			= 0
+		\end{equation}
+		\begin{equation}
+			2\bo{A}^\top(\bo{A}\bo{x} - \bo{y}) = 0
+		\end{equation}
+		\begin{equation}
+			\bo{A}^\top\bo{A}\bo{x} = \bo{A}^\top\bo{y}
+		\end{equation}
+		\begin{equation}
+			\bo{x} = (\bo{A}^\top\bo{A})^{-1} \bo{A}^\top\bo{y}
+		\end{equation}
+		
+		Thus we can define a \emph{pseudoinverse}:
+		%
+		\begin{equation}
+			\bo{A}^+ = (\bo{A}^\top\bo{A})^{-1} \bo{A}^\top
+		\end{equation}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Least squares at a glance (3)}
+	% \framesubtitle{Parameter estimation}
+	\begin{flushleft}
+		
+		Thus the least residual solution to $\bo{A}\bo{x} = \bo{y}$ is written as:
+		
+		\begin{equation}
+			\bo{x} = \bo{A}^+\bo{y}
+		\end{equation}
+		
+		We proved that this is the least-residual solution, we will prove that the solution is also \emph{smallest norm} (out of all solutions with the same residual) later in the lecture.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{Least squares at a glance (4)}
+ \framesubtitle{Orthonormal case}
+	\begin{flushleft}
+		
+		Matrix $\bo{M}$ is orthonormal, meaning $\bo{M}\T \bo{M} = \bo{I}$. Its  pseudoinverse can be simplified:
+		
+		\begin{align}
+			\bo{M}^+ = (\bo{M}^\top\bo{M})^{-1} \bo{M}^\top = \bo{M}^\top
+		\end{align}
+	
+		\bigskip
+	
+		Then least squares solution to the equation $\bo{M} \bo{x} = \bo{y}$ can be found as:
+		%
+		\begin{align}
+			\bo{x}_{LS} = \bo{M}^\top \bo{y}
+		\end{align}
+	
+	
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{Computing the residual}
+	% \framesubtitle{Parameter estimation}
+	\begin{flushleft}
+		
+		Given an equation $\bo{A}\bo{x} = \bo{y}$ and least squares solution $\bo{x}_{LS} = \bo{A}^+\bo{y}$, let us compute the residual $\bo{e} = \bo{A}\bo{x}_{LS} - \bo{y}$. We substitute the solution:
+		 
+		\begin{equation}
+			\bo{e} = \bo{A}\bo{A}^+\bo{y} - \bo{y}
+		\end{equation}
+		
+		We find that:
+		
+		\begin{itemize}
+			\item The residual can be found as $\bo{e} = (\bo{A}\bo{A}^+ - \bo{I})\bo{y}$.
+			
+			\item The closest $\bo{A}\bo{x}$ can get to $\bo{y}$ is $\bo{y}^* = \bo{A}\bo{A}^+\bo{y}$.
+			
+			\item Later we will find that $\bo{A}\bo{A}^+\bo{y}$ is a \emph{projection} of $\bo{y}$ onto a \emph{column space} of $\bo{A}$.
+		\end{itemize}
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+
+%\begin{frame}{Motivating questions}
+%% \framesubtitle{Parameter estimation}
+%\begin{flushleft}
+%
+%You have a linear operator $\mathbf A$. Try to answer the following questions:
+%
+%\begin{itemize}
+%    \item What are all vectors this operator can produce as outputs? How to find them?
+%    \item Are there two inputs that make it produce the same output?
+%    \item Are there inputs that produce zero as an output?
+%    \item Are there outputs that cannot be produced? 
+%    \item What is the smallest vector $\bo{x}$ that produces given output $\bo{y}$? 
+%\end{itemize}
+%
+%These questions are directly related to the idea of fundamental subspaces of a linear operator.
+%
+%\end{flushleft}
+%\end{frame}
+
+
+\begin{frame}{Four Fundamental Subspaces}
+	% \framesubtitle{Parameter estimation}
+	\begin{flushleft}
+		
+		One of the key ideas in Linear Algebra is that every linear operator has four fundamental subspaces:
+		
+		\begin{itemize}
+			\item Null space
+			\item Row space
+			\item Column space
+			\item Left null space
+		\end{itemize}
+		
+		\bigskip
+		
+		Our goal is to understand them. The usefulness of this concept is enormous.
+		
+	\end{flushleft}
+\end{frame}
+
+\begin{frame}{Null space}
+	\framesubtitle{Definition}
+	\begin{flushleft}
+		
+		Consider the following task: find all solutions to the system of equations $\mathbf{A} \mathbf{x} = \mathbf{0}$.
+		
+		\bigskip
+		
+		It can be re-formulated as follows: find all elements of the \emph{null space} of $\mathbf{A}$.
+		
+		\begin{block}{Definition 1}
+			\emph{Null space} of $\mathbf{A}$ is the set of all vectors $\mathbf{x}$ that $\mathbf{A}$ maps to $\mathbf{0}$
+		\end{block}
+		
+		\bigskip
+		
+		We will denote null space as $\mathcal{N}(\mathbf{A})$. In the literature, it is often denoted as $\text{ker}(\mathbf{A})$ or $\text{null}(\mathbf{A})$.
+		
+	\end{flushleft}
+\end{frame}
+
+
+\begin{frame}{Null space}
+	\framesubtitle{Calculation}
+	\begin{flushleft}
+		
+		Now we can find all solutions to the system of equations $\mathbf{A} \mathbf{x} = \mathbf{0}$ by using functions that generate an \emph{orthonormal basis} in the null space of $\mathbf{A}$. In MATLAB it is function \texttt{null}, in Python/Scipy - \texttt{null\_space}:
+		
+		\bigskip
+		
+		\begin{itemize}
+			\item \texttt{N = null(A)}.
+			\item \texttt{N = scipy.linalg.null\_space(A)}.
+		\end{itemize}
+		
+		\bigskip
+		
+%		That is it! Space of solutions of $\mathbf{A} \mathbf{x} = \mathbf{0}$ is the span of the columns of $\mathbf{N}$, and all solutions $\mathbf{x}^*$ can be represented as $\mathbf{x}^* = \mathbf{N}\mathbf{z}$; for any $\mathbf{z}$ we get a unique solution, and for any solution - a unique $\mathbf{z}$.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Null space projection}
+	\framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Let $\bo{N}$ be the orthonormal basis in the null space of matrix $\bo{A}$. Then, if a vector $\bo{x}$ lies in the null space of $\bo{A}$, it can be represented as:
+		
+		\begin{equation}
+			\bo{x} = \bo{N}\bo{z}
+		\end{equation}
+		%
+		where $\bo{z}$ are coordinates of $\bo{x}$ in the basis $\bo{N}$.
+		
+		\bigskip
+		
+		However, there are vectors which not only are not lying in the null space of $\bo{A}$,  but the closest vector to them in the null space is the zero vector.
+		
+	\end{flushleft}
+\end{frame}
+
+
+\begin{frame}{Closest element from a linear subspace}
+	% \framesubtitle{Orthogonality, examples}
+	\begin{flushleft}
+		
+		$\bo{A} = \begin{bmatrix} 0 & 1 \\ 0 & 0\end{bmatrix}$. Its null space has orthonormal basis $\bo{N} = \begin{bmatrix} 1 \\ 0\end{bmatrix}$. 
+		
+		\begin{itemize}
+			\item $\begin{bmatrix} -2 \\ 0 \end{bmatrix} = 
+			-2 \bo{N}$,
+			$\begin{bmatrix} 10 \\ 0 \end{bmatrix} = 
+			10 \bo{N}$, - both are in the null space.
+			\item for $\bo{x} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ the closest vector in the null space is $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$.
+			\item for $\bo{y} = \begin{bmatrix} 0 \\ 2 \end{bmatrix}$ the closest vector in the null space is $\begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+		\end{itemize}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Orthogonality, definition (1)}
+	% \framesubtitle{Orthogonality, definition}
+	\begin{flushleft}
+		
+		\begin{definition}
+			Any two vectors, $\bo{x}$ and $\bo{y}$, whose dot product is zero are said to be \emph{orthogonal} to each other.
+		\end{definition}
+		
+		\begin{definition}
+			Vector $\bo{y}$, whose dot product with any $\bo{x} \in \mathcal{L}$ is orthogonal to the subspace $\mathcal{L}$
+		\end{definition}
+		
+		\begin{definition}[equivalent, see Appendix A]
+			If for a vector $\bo{y}$, the closest vector to it from a linear subspace $\mathcal{L}$ is zero vector, $\bo{y}$ is called orthogonal to the subspace $\mathcal{L}$.
+		\end{definition}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+\begin{frame}{Orthogonality, definition (2)}
+	% \framesubtitle{Orthogonality, definition}
+	\begin{flushleft}
+		
+		\begin{definition}
+			The space of all vectors $\bo{y}$, orthogonal to a linear subspace $\mathcal{L}$ is called \emph{orthogonal complement} of $\mathcal{L}$ and is denoted as $\mathcal{L}^\perp$.
+		\end{definition}
+		
+		
+		\begin{definition}[equivalent]
+			The space of all vectors $\bo{y}$, such that $\text{dot}(\bo{y}, \bo{x}) = 0$, $\forall \bo{x} \in \mathcal{L}$ is called \emph{orthogonal complement} of $\mathcal{L}$.
+		\end{definition}
+		
+		Therefore $\bo{x} \in \mathcal{L}$ and $\bo{y} \in \mathcal{L}^\perp$ implies $\text{dot}(\bo{y}, \bo{x}) = 0$.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Projection}
+	\framesubtitle{Part 1}
+	\begin{flushleft}
+		
+		Let $\bo{L}$ be an orthonormal basis in a linear subspace $\mathcal{L}$. Take vector $\bo{a} = \bo{x} + \bo{y}$, where $\bo{x}$ lies in the subspace $\mathcal{L}$, and $\bo{y}$ lies in the subspace $\mathcal{L}^\perp$.
+		
+		\bigskip
+		
+		\begin{definition}
+			We call such vector $\bo{x}$ a \emph{projection} of $\bo{a}$ onto subspace $\mathcal{L}$, and such vector $\bo{y}$ a projection of $\bo{a}$ onto subspace $\mathcal{L}^\perp$
+		\end{definition}
+		
+		\bigskip
+		
+		Projection is the closest element in the subspace to a given vector. Projection of $\bo{a}$ onto $\mathcal{L}$ can be found as: 
+		
+		\begin{equation}
+			\bo{x} = \bo{L} \bo{L}^+ \bo{a}
+		\end{equation}
+		
+		Since $\bo{L}$ is orthonormal, this is the same as $\bo{x} = \bo{L} \bo{L}^\top \bo{a}$
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Projection}
+	\framesubtitle{Part 2}
+	\begin{flushleft}
+		
+		Since $\bo{a} = \bo{x} + \bo{y}$, and $\bo{x} = \bo{L} \bo{L}^+ \bo{a}$, we can write:
+		
+		\begin{equation}
+			\bo{a} = \bo{L} \bo{L}^+ \bo{a} + \bo{y}
+		\end{equation}
+		%
+		from which it follows that the projection of $\bo{a}$ onto $\mathcal{L}^\perp$ can be found as: 
+		
+		\begin{equation}
+			\bo{y} = (\bo{I} - \bo{L} \bo{L}^+) \bo{a}
+		\end{equation}
+		%
+		where $\bo{I}$ is an identity matrix. Since $\bo{L}$ is orthonormal, this is the same as $\bo{y} = (\bo{I} - \bo{L} \bo{L}^\top) \bo{a}$
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{Row space}
+	\framesubtitle{Definition}
+	\begin{flushleft}
+		
+		\begin{definition}
+			Let $\mathcal{N}$ be null space of $\bo{A}$. Then orthogonal complement $\mathcal{N}^\perp$ is called \emph{row space} of $\bo{A}$.
+		\end{definition}
+	
+		\bigskip
+		
+		Row space of $\bo{A}$ is the space of all smallest-norm solutions of $\bo{A}\bo{x} = \bo{y}$, for $\forall \bo{y}$. We will denote row space as $\mathcal{R}$.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{Vectors in Null space, Row space}
+	% \framesubtitle{Definition}
+	\begin{flushleft}
+		
+		Given vector $\bo{x}$, matrix $\bo{A}$ and its null space basis $\bo{N}$, we check if $\bo{x}$ is in the null space of $\bo{A}$. The simplest way is to check if $\bo{A}\bo{x} = 0$. But sometimes we may want to avoid computing $\bo{A}\bo{x}$, for example if the number of elements of $\bo{A}$ is much larger than the number of elements of $\bo{N}$.
+		
+		\bigskip
+		
+		If $\bo{x}$ is in the null space of $\bo{A}$, it will have zero projection onto the row space of $\bo{A}$. This gives us the condition we can check:
+		
+		\begin{equation}
+			(\bo{I} - \bo{N} \bo{N}^\top) \bo{x} = 0
+		\end{equation}
+		
+		By the same logic, condition for being in the row space is as follows:
+		
+		\begin{equation}
+			\bo{N} \bo{N}^\top \bo{x} = 0
+		\end{equation}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Column space}
+	% \framesubtitle{Parameter estimation}
+	\begin{flushleft}
+		
+		Consider the following task: find all linear combinations of the columns of $\bo{A}$: $\{ \bo{y}: \ \bo{y} = \bo{A} \bo{x}  \}$.
+		
+		\bigskip
+		
+		It can be re-formulated as follows: find all elements of the \emph{column space} of $\bo{A}$.
+		
+		\begin{block}{Definition - column space}
+			\emph{Column space} of $\bo{A}$ is the set of all outputs of the matrix $\bo{A}$, for all possible inputs
+		\end{block}
+		
+		\bigskip
+		
+		We will denote column space as $\mathcal{C}(\bo{A})$. In the literature, it is often called an \emph{image} of $\bo{A}$.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Column space basis}
+	% \framesubtitle{Minimize one of the control inputs}
+	\begin{flushleft}
+		
+		The problem of finding orthonormal basis in the column space of a matrix is often called \emph{orthonormalization} of that matrix. Hence in MATLAB and Python/Scipy the function that does it is called \texttt{orth}:
+		
+		\bigskip
+		
+		\begin{itemize}
+			\item \texttt{C = orth(A)}.
+			\item \texttt{C = scipy.linalg.orth(A)}.
+		\end{itemize}
+		
+		\bigskip
+		
+%		That is how one finds all the outputs of the matrix $\bo{A}$: as $\{ \bo{C}\bo{z}: \ \forall \bo{z} \}$. 
+%		
+%		Notice that $\{ \bo{A}\bo{x}: \ \forall \bo{x} \}$ might contain repeated entries if $\bo{A}$ has a non-trivial null space.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Column space and null space}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Let $\bo{A}$ be a square matrix, a map from $\mathbb{X} = \R^n$ to $\mathbb{Y} = \R^n$. 
+		Notice that if it has a non-trivial null space, it follows that multiple unique inputs are being mapped by it to the same output:
+		
+		\begin{equation}
+			\begin{aligned}
+				\bo{y} = \bo{A} \bo{x}_r = \bo{A} (\bo{x}_r + \bo{x}_n), \\
+				\bo{x}_r \in \mathcal{R}(\bo{A}) \\
+				\forall \bo{x}_n \in \mathcal{N}(\bo{A}) \\
+			\end{aligned}
+		\end{equation}
+		
+		In fact, if null space of $\bo{A}$ has $k$ dimensions, it implies that an $k$-dimensional subspace of $\mathbb{X}$ is mapped to a single element of $\mathbb{Y}$. 
+		
+		\bigskip
+		
+		It follows that in this case the dimensionality of the column space could not exceed $n-k$.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Projector onto column space}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Given vector $\bo{y}$ and matrix $\bo{A}$, let us find $\bo{y}_c$ - projection of $\bo{y}$ onto the column space of $\bo{A}$.
+		
+		\bigskip
+		
+		Since $\bo{y}_c \in \mathcal{C}(\bo{A})$, we can find such $\bo{x}$ that $\bo{A}\bo{x} = \bo{y}_c$; So, the problems is to minimize the residual $|| \bo{y}_c - \bo{y} || = || \bo{A}\bo{x} - \bo{y} ||$, which is least squares problem: $\bo{x} = \bo{A}^+ \bo{y}$. So:
+		
+		\begin{equation}
+			\bo{y}_c = \bo{A}\bo{A}^+ \bo{y} \in \mathcal{C}(\bo{A})
+		\end{equation}
+		
+		Remember that computing the pseudoinverse is based on SVD decomposition, same as finding a basis in the null space or the column space, so in terms of computational expense, all projections we discussed are similar.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Projector onto row space}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Similarly we can define a projector onto the row space. Given vector $\bo{x}$ and matrix $\bo{A}$, let us find projector of $\bo{x}$ onto the row space of $\bo{A}$:
+		
+		\begin{equation}
+			\bo{x}_r = \bo{A}^+\bo{A} \bo{x} \in \mathcal{R}(\bo{A})
+		\end{equation}
+		
+		You can think of this in the following terms: first we find output $\bo{A} \bo{x}$, then we find the smallest norm vector that produces this same output, and this vector has to 1) have the same row space projection (because output is the same), 2) has to lie in the row space. Hence it is the row space projector of $\bo{x}$.
+		
+		\bigskip
+		
+		Notice that we implicitly used the fact that columns of $\bo{A}^+$ lie in the row space of $\bo{A}$. We will prove this fact later. Additionally, we will prove that row space of $\bo{A}$ is equivalent to the column space of $\bo{A}^\top$.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{Left null space}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		The subspace, orthogonal to the column space is called \emph{left null space}.
+		
+		\bigskip
+		
+		\begin{definition}
+			Space of all vectors $\bo{y}$ orthogonal to the columns of $\bo{A}$ is called \emph{left null space}: $\bo{y}^\top\bo{A} = 0$
+		\end{definition}
+		
+		You can think of left null space as a space of vectors that not only cannot be produced by operator $\bo{A}$, but the closest vector to them that can be produced is the zero vector.
+		
+		\bigskip
+		
+		Notice that $\bo{y}\T \bo{A} = 0$ implies $\bo{A}\T \bo{y} = 0$, meaning that left null space of $\bo{A}$ is equivalent to the null space of $\bo{A}\T$.
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{Left null space projector}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		If we want to project vector $\bo{y}$ onto the left null space of $\bo{A}$, we project it onto the column space, and subtract the result from $\bo{y}$:
+		
+		\begin{equation}
+			\bo{y}_l = (\bo{I} - \bo{A}\bo{A}^+) \bo{y} \in \mathcal{C}^\perp(\bo{A})
+		\end{equation}
+		
+		If $\bo{C}$ is an orthonormal basis in the column space of $\bo{A}$, the projection can be found the following way:
+		
+		\begin{equation}
+			\bo{y}_l = (\bo{I} - \bo{C}\bo{C}^\top) \bo{y} \in \mathcal{C}^\perp(\bo{A})
+		\end{equation}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Singular Value Decomposition}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Given $\bo{A} \in \R^{n, m}$ we can find its Singular Value Decomposition (SVD):
+		
+		\begin{equation}
+			\bo{A} = 
+			\begin{bmatrix}
+				\bo{C} & \bo{L}
+			\end{bmatrix}
+			\begin{bmatrix}
+				\bo{\Sigma} & \bo{0} \\
+				\bo{0} & \bo{0}
+			\end{bmatrix}
+			\begin{bmatrix}
+				\bo{R}^\top \\ \bo{N}^\top
+			\end{bmatrix}
+		\end{equation}
+		
+		\begin{equation}
+			\bo{A} = 
+			\bo{C} \bo{\Sigma} \bo{R}^\top
+		\end{equation}
+		
+		where $\bo{C}$, $\bo{L}$, $\bo{R}$ and $\bo{N}$ are column, left null, row and null space bases (orthonormal), $\bo{\Sigma}$ is the diagonal matrix of singular values. The singular values are positive and are sorted in the decreasing order.
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Rank and pseudoinverse}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Rank of the matrix is computed as the size of $\bo{\Sigma}$. Note that numeric tolerance applies when deciding if the singular value is non-zero.
+		
+		\bigskip
+		
+		Pseudoinverse $\bo{A}^+$ is computed as:
+		
+		\begin{equation}
+			\bo{A}^+ = 
+			\begin{bmatrix}
+				\bo{R} & \bo{N}
+			\end{bmatrix}
+			\begin{bmatrix}
+				\bo{\Sigma}^{-1} & \bo{0} \\
+				\bo{0} & \bo{0}
+			\end{bmatrix}
+			\begin{bmatrix}
+				\bo{C}^\top \\ \bo{L}^\top
+			\end{bmatrix}
+		\end{equation}		
+		
+		\begin{equation}
+			\bo{A}^+ = 
+			\bo{R} \bo{\Sigma}^{-1} \bo{C}^\top
+		\end{equation}		
+	
+	Note that this proves that $\bo{A}^+$ lies in the row space of $\bo{A}$.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{SVD of a transpose}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Let's find SVD decomposition of a $\bo{A}^\top$:
+		
+		\begin{equation}
+			\bo{A}^\top = 
+			\begin{bmatrix}
+				\bo{C}_t & \bo{L}_t
+			\end{bmatrix}
+			\begin{bmatrix}
+				\bo{\Sigma}_t & \bo{0} \\
+				\bo{0} & \bo{0}
+			\end{bmatrix}
+			\begin{bmatrix}
+				\bo{R}_t^\top \\ \bo{N}_t^\top
+			\end{bmatrix}
+		\end{equation}
+		
+		Let us transpose it (remembering that transpose of a diagonal matrix the original matrix $\bo{\Sigma}_t^\top = \bo{\Sigma}_t$):
+		
+		
+		\begin{equation}
+			\bo{A} = 
+			\begin{bmatrix}
+				\bo{R}_t & \bo{N}_t
+			\end{bmatrix}
+			\begin{bmatrix}
+				\bo{\Sigma}_t & \bo{0} \\
+				\bo{0} & \bo{0}
+			\end{bmatrix}
+			\begin{bmatrix}
+				\bo{C}_t^\top \\ \bo{L}_t^\top
+			\end{bmatrix}
+		\end{equation}
+		
+		Thus we can see that the row space of the original matrix $\bo{A}$ is the column space of the transpose $\bo{A}^\top$. And the left null space of the original matrix $\bo{A}$ is the null space of the transpose $\bo{A}^\top$.
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Projectors (1)}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Let's prove that $\bo{A}\bo{A}^+$ is equivalent to $\bo{C}\bo{C}^\top$:
+		
+		\begin{equation}
+			\bo{A} \bo{A}^+ = 
+			\bo{C} \bo{\Sigma} \bo{R}^\top 
+			\bo{R} \bo{\Sigma}^{-1} \bo{C}^\top
+		\end{equation}
+		
+		
+		\begin{equation}
+			\bo{A} \bo{A}^+ = 
+			\bo{C} \bo{\Sigma} \bo{\Sigma}^{-1} \bo{C}^\top
+		\end{equation}
+		
+		\begin{equation}
+			\bo{A} \bo{A}^+ = 
+			\bo{C} \bo{C}^\top
+		\end{equation}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Projectors (2)}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Let's prove that $\bo{A}^+\bo{A}$ is equivalent to $\bo{R}\bo{R}^\top$:
+		
+		\begin{equation}
+			\bo{A}^+ \bo{A} = 
+			\bo{R} \bo{\Sigma}^{-1} \bo{C}^\top
+			\bo{C} \bo{\Sigma} \bo{R}^\top 
+		\end{equation}
+		
+		\begin{equation}
+			\bo{A}^+ \bo{A} = 
+			\bo{R} \bo{\Sigma}^{-1} \bo{\Sigma} \bo{R}^\top 
+		\end{equation}		
+		
+		\begin{equation}
+			\bo{A}^+ \bo{A} = 
+			\bo{R} \bo{R}^\top 
+		\end{equation}			
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Projectors (3)}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Let us denote $\bo{P} = \bo{A}\bo{A}^+$. 
+		Let's prove that $\bo{P}\bo{P} = \bo{P}$:
+		
+		\begin{equation}
+			\bo{A} \bo{A}^+ \bo{A} \bo{A}^+ = 
+			\bo{C} \bo{\Sigma} \bo{R}^\top 
+			\bo{R} \bo{\Sigma}^{-1} \bo{C}^\top 
+			\bo{C} \bo{\Sigma} \bo{R}^\top 
+			\bo{R} \bo{\Sigma}^{-1} \bo{C}^\top
+		\end{equation}
+		
+		\begin{equation}
+			\bo{A} \bo{A}^+ \bo{A} \bo{A}^+ = 
+			\bo{C} \bo{\Sigma} \bo{\Sigma}^{-1}\bo{\Sigma} \bo{\Sigma}^{-1} \bo{C}^\top
+		\end{equation}	
+		
+		\begin{equation}
+			\bo{A} \bo{A}^+ \bo{A} \bo{A}^+ = 
+			\bo{C} \bo{C}^\top =
+			\bo{A} \bo{A}^+
+		\end{equation}		
+		
+		The same is true for $\bo{P} = \bo{A}^+\bo{A}$: we can prove that $\bo{A}^+\bo{A} \bo{A}^+\bo{A} = \bo{A}^+\bo{A}$.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Projectors (4)}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		Let's prove that $\bo{P}^+ = \bo{P}$. 
+		
+		First, we find basis in the linear space where $\bo{P}$ projects onto: $\bo{C} = \text{orth}(\bo{P})$, therefore $\bo{P} = \bo{C}\bo{C}\T$.
+		
+		\begin{align}
+			\bo{P}\bo{P}^+ &= \bo{I}, \\
+			\bo{C}\bo{C}\T\bo{P}^+ &= \bo{I}, \\
+			\bo{C}\T \bo{P}^+ &= \bo{C}\T, \\
+			\bo{P}^+ &= \bo{C} \bo{C}\T, \\
+			\bo{P}^+ &= \bo{P}, \qed
+		\end{align}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Read more}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		\begin{itemize}
+			\item \bref{https://faculty.math.illinois.edu/~mlavrov/docs/484-spring-2019/ch4lec4.pdf}{Minimum Norm Solutions, Math 484: Nonlinear Programming, Mikhail Lavrov}
+			%https://faculty.math.illinois.edu/~mlavrov/courses/484-spring-2019.html
+			
+			\item \bref{https://faculty.math.illinois.edu/~mlavrov/docs/484-spring-2019/ch4lec3.pdf}{Orthogonality, Math 484: Nonlinear Programming, Mikhail Lavrov}
+			
+			
+			
+		\end{itemize}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{Thank you!}
+\centerline{Lecture slides are available via Moodle.}
+\bigskip
+\centerline{You can help improve these slides at:}
+\centerline{\mygit}
+\bigskip
+\centerline{Check Moodle for additional links, videos, textbook suggestions.}
+\bigskip
+
+\centerline{\textcolor{black}{\qrcode[height=1.6in]{https://github.com/SergeiSa/Fundamentals-of-robotics-2023}}}
+
+\end{frame}
+
+
+
+
+\begin{frame}{Appendix A}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		We have two definitions of orthogonality of a vector and a subspace:
+		
+		\begin{enumerate}
+			\item Vector $\bo{y}$, whose dot product with any $\bo{x} \in \mathcal{L}$ is orthogonal to the subspace $\mathcal{L}$
+			
+			\item If for a vector $\bo{y}$, the closest vector to it from a linear subspace $\mathcal{L}$ is zero vector, $\bo{y}$ is called orthogonal to the subspace $\mathcal{L}$.
+		\end{enumerate}
+		
+	Let us prove their equivalence. First we show that 1) implies 2). Let $\bo{L}$ be orthonormal basis in $\mathcal{L}$. To find the closest element $\bo{y}^*$ of $\mathcal{L}$ to $\bo{y}$, we need to solve the least squares problem $\bo{L}\bo{z} = \bo{y}$, and multiply the solution by $\bo{L}$:
+	
+	\begin{align}
+		\bo{z}_{LS} &= \bo{L}\T \bo{y} = \bo{0} \\
+    	\bo{y}^* = \bo{L}\bo{z}_{LS} &= \bo{L}\bo{L}\T \bo{y} = \bo{0}
+	\end{align}		
+		
+	\end{flushleft}
+\end{frame}
+
+
+\begin{frame}{Appendix A}
+	% \framesubtitle{Local coordinates}
+	\begin{flushleft}
+		
+		
+		Second, let us prove that 2) implies 1). Given that $\bo{y}^* = \bo{L}\bo{z}_{LS} = \bo{L}\bo{L}\T \bo{y} = \bo{0}$ we need to prove that $\bo{L}\T \bo{y} = \bo{0}$. We start by multiplying the last equation by $\bo{L}\T$:
+		
+		\begin{align}
+			& \bo{L}\bo{L}\T \bo{y} = \bo{0} \\
+			& \bo{L}\T \bo{L}\bo{L}\T \bo{y} = \bo{0} \\
+			& \bo{L}\T \bo{y} = \bo{0}  \ \ \ \ \ \ \textcolor{mygray}{\text{since }  \bo{L}\T \bo{L} = \bo{I}}
+		\end{align}		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+
+\end{document}
