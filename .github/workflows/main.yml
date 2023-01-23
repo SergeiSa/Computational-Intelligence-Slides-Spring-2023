@@ -31,17 +31,11 @@ jobs:
           root_file: main.tex
           working_directory: Slides/Introduction/
 
-      - name: Compile LaTeX document NullRowProjector
+      - name: Compile LaTeX document Subspaces
         uses: xu-cheng/latex-action@master
         with:
           root_file: main.tex
-          working_directory: Slides/NullRowProjector/
-
-      - name: Compile LaTeX document ColumnLeftNullApplications
-        uses: xu-cheng/latex-action@master
-        with:
-          root_file: main.tex
-          working_directory: Slides/ColumnLeftNullApplications/
+          working_directory: Slides/Subspaces/
 
       - name: Compile LaTeX document LeastSquares_QuadraticProgramming
         uses: xu-cheng/latex-action@master
@@ -97,12 +91,6 @@ jobs:
           root_file: main.tex
           working_directory: Slides/MiniMax/
 
-      - name: Compile LaTeX document SVD
-        uses: xu-cheng/latex-action@master
-        with:
-          root_file: main.tex
-          working_directory: Slides/SVD/
-
       - name: Compile LaTeX document Assignment_1
         uses: xu-cheng/latex-action@master
         with:
@@ -124,17 +112,11 @@ jobs:
           name: Introduction.pdf
           path: Slides/Introduction/main.pdf
 
-      - name: Save NullRowProjector artifact
+      - name: Save Subspaces artifact
         uses: actions/upload-artifact@v1
         with:
-          name: NullRowProjector.pdf
-          path: Slides/NullRowProjector/main.pdf
-
-      - name: Save ColumnLeftNullApplications artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: ColumnLeftNullApplications.pdf
-          path: Slides/ColumnLeftNullApplications/main.pdf
+          name: Subspaces.pdf
+          path: Slides/Subspaces/main.pdf
 
       - name: Save LeastSquares_QuadraticProgramming artifact
         uses: actions/upload-artifact@v1
@@ -190,12 +172,6 @@ jobs:
           name: MiniMax.pdf
           path: Slides/MiniMax/main.pdf
 
-      - name: Save SVD artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: SVD.pdf
-          path: Slides/SVD/main.pdf
-
       - name: Save Assignment_1 artifact
         uses: actions/upload-artifact@v1
         with:
@@ -212,8 +188,7 @@ jobs:
           git config --global user.email '<>'
           git add Syllabus/main.pdf
           git add Slides/Introduction/main.pdf
-          git add Slides/NullRowProjector/main.pdf
-          git add Slides/ColumnLeftNullApplications/main.pdf
+          git add Slides/Subspaces/main.pdf
           git add Slides/LeastSquares_QuadraticProgramming/main.pdf
           git add Slides/ConvexDomains/main.pdf
           git add Slides/LMI_ConvexDomains/main.pdf
@@ -223,7 +198,6 @@ jobs:
           git add Slides/BarrierFunctions/main.pdf
           git add Slides/MICP/main.pdf
           git add Slides/MiniMax/main.pdf
-          git add Slides/SVD/main.pdf
           git add Assignments/Assignment_1/main.pdf
 
 
