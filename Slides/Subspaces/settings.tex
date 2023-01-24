@@ -91,6 +91,7 @@
 
 \usepackage{subcaption}
 
+\usepackage{qrcode}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 \newcommand{\bo}[1] {\mathbf{#1}}
@@ -112,7 +113,23 @@
 
 
 \newcommand{\mydate}{Spring 2023}
+
 \newcommand{\mygit}{\textcolor{blue}{\href{https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023}{github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023}}}
+
+\newcommand{\myqr}{ \textcolor{black}{\qrcode[height=1.5in]{https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023}}
+}
+
+\newcommand{\myqrframe}{
+	\begin{frame}
+		\centerline{Lecture slides are available via Github, links are on Moodle}
+		\bigskip
+		\centerline{You can help improve these slides at:}
+		\centerline{\mygit}
+		\bigskip
+		\myqr
+	\end{frame}
+}
+
 
 \newcommand{\bref}[2] {\textcolor{blue}{\href{#1}{#2}}}
 
@@ -163,4 +180,3 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{qrcode}
