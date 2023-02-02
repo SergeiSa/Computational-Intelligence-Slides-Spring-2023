@@ -3,8 +3,8 @@
 \input{settings.tex}
 
 
-\title{Linear inequality representation of convex domains}
-\subtitle{Computational Intelligence, Lecture 7}
+\title{Linear inequalities and H-polytopes}
+\subtitle{Computational Intelligence, Lecture 4}
 \author{by Sergei Savin}
 \centering
 \date{\mydate}
@@ -27,7 +27,6 @@
 \item V-representation
 \end{itemize}
 \item Linear approximation of convex regions
-\item Homework
 \end{itemize}
 
 \end{frame}
@@ -137,7 +136,7 @@ And conversely, any matrix inequality \eqref{eq:ineq} represents either an empty
 \bigskip
 
 \begin{definition}
- $\mathbf{A} \mathbf{x} \leq  \mathbf{b}$ is called \emph{H-representation} of a polytope.
+ $\mathbf{A} \mathbf{x} \leq  \mathbf{b}$ is called \emph{H-representation} (half-space representation) of a polytope.
 \end{definition}
  
 \end{flushleft}
@@ -171,11 +170,11 @@ is an H-representation of the same square.
 % \framesubtitle{}
 \begin{flushleft}
 
-Question: can we use V-representation for non-convex polytopes? What about H-representation?
+To transfer from H-representation to V-representation, you need to solve \emph{vertex enumeration} problem, which is computationally expensive. 
 
 \bigskip
 
-Another note: to transfer from H-representation to V-representation, you need to solve \emph{vertex enumeration} problem, which is computationally expensive.
+It is also possible to construct H-representation out of V-representation.  Both algorithms are not convex.
  
 \end{flushleft}
 \end{frame}
@@ -197,7 +196,7 @@ Which allows to represent constraints on $\mathbf{x}$ to belong in such a region
 
 
 
-\begin{frame}{Homework}
+\begin{frame}{Exercise}
 % \framesubtitle{Parameter estimation}
 \begin{flushleft}
 
@@ -225,22 +224,6 @@ Represent in matrix inequality form the following figures:
 % \end{flushleft}
 % \end{frame}
 
-
-
-\begin{frame}
-	\centerline{Lecture slides are available via Moodle.}
-	\bigskip
-	\centerline{You can help improve these slides at:}
-	\centerline{
-		\mygit
-	}
-	\bigskip
-	
-	\textcolor{black}{\qrcode[height=1.5in]{https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2022}}
-	\bigskip
-	
-	
-	\centerline{Check Moodle for additional links, videos, textbook suggestions.}
-\end{frame}
+\myqrframe
 
 \end{document}
