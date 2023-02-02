@@ -37,23 +37,17 @@ jobs:
           root_file: main.tex
           working_directory: Slides/Subspaces/
 
-      - name: Compile LaTeX document LeastSquares_QuadraticProgramming
+      - name: Compile LaTeX document LeastSquares2QuadraticProgramming_Convexity
         uses: xu-cheng/latex-action@master
         with:
           root_file: main.tex
-          working_directory: Slides/LeastSquares_QuadraticProgramming/
+          working_directory: Slides/LeastSquares2QuadraticProgramming_Convexity/
 
-      - name: Compile LaTeX document ConvexDomains
+      - name: Compile LaTeX document H_representation
         uses: xu-cheng/latex-action@master
         with:
           root_file: main.tex
-          working_directory: Slides/ConvexDomains/
-
-      - name: Compile LaTeX document LMI_ConvexDomains
-        uses: xu-cheng/latex-action@master
-        with:
-          root_file: main.tex
-          working_directory: Slides/LMI_ConvexDomains/
+          working_directory: Slides/H_representation/
 
       - name: Compile LaTeX document Linear_Programming
         uses: xu-cheng/latex-action@master
@@ -118,23 +112,17 @@ jobs:
           name: Subspaces.pdf
           path: Slides/Subspaces/main.pdf
 
-      - name: Save LeastSquares_QuadraticProgramming artifact
+      - name: Save LeastSquares2QuadraticProgramming_Convexity artifact
         uses: actions/upload-artifact@v1
         with:
-          name: LeastSquares_QuadraticProgramming.pdf
-          path: Slides/LeastSquares_QuadraticProgramming/main.pdf
+          name: LeastSquares2QuadraticProgramming_Convexity.pdf
+          path: Slides/LeastSquares2QuadraticProgramming_Convexity/main.pdf
 
-      - name: Save ConvexDomains artifact
+      - name: Save H_representation artifact
         uses: actions/upload-artifact@v1
         with:
-          name: ConvexDomains.pdf
-          path: Slides/ConvexDomains/main.pdf
-
-      - name: Save LMI_ConvexDomains artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: LMI_ConvexDomains.pdf
-          path: Slides/LMI_ConvexDomains/main.pdf
+          name: H_representation.pdf
+          path: Slides/H_representation/main.pdf
 
       - name: Save Linear_Programming artifact
         uses: actions/upload-artifact@v1
@@ -189,9 +177,8 @@ jobs:
           git add Syllabus/main.pdf
           git add Slides/Introduction/main.pdf
           git add Slides/Subspaces/main.pdf
-          git add Slides/LeastSquares_QuadraticProgramming/main.pdf
-          git add Slides/ConvexDomains/main.pdf
-          git add Slides/LMI_ConvexDomains/main.pdf
+          git add Slides/LeastSquares2QuadraticProgramming_Convexity/main.pdf
+          git add Slides/H_representation/main.pdf
           git add Slides/Linear_Programming/main.pdf
           git add Slides/QCQP_SOCP/main.pdf
           git add Slides/SDP/main.pdf
