@@ -13,7 +13,9 @@
 
 # Lecture videos:
 
-
+* Lecture 1, part 1 (Introduction) - https://youtu.be/p8zJBN9Ryss 
+* Lecture 1, part 2 (Least Squares, Subspaces, Projectors) - https://youtu.be/SMJ2rksdQxo 
+* Lecture 2 (SVD) - https://youtu.be/ueXQMFpRN8c 
 
 # Reference material
 
