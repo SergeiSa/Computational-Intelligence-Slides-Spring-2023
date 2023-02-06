@@ -16,6 +16,9 @@
 * Lecture 1, part 1 (Introduction) - https://youtu.be/p8zJBN9Ryss 
 * Lecture 1, part 2 (Least Squares, Subspaces, Projectors) - https://youtu.be/SMJ2rksdQxo 
 * Lecture 2 (SVD) - https://youtu.be/ueXQMFpRN8c 
+* Lecture 3 (Least Squares, Quadratic Programming, Domains) - https://youtu.be/YFDy1VpeS2Y
+* Lecture 4, part 1 (Convex domains, Convex functions, Convex optimization) - https://youtu.be/sBtbFg8fdmA
+* Lecture 4, part 2 ()
 
 # Reference material
 
