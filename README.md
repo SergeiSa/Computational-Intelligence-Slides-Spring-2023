@@ -4,8 +4,8 @@
 * Lecture 3 - [Least Squares, Quadratic Programming, Domains, Convexity](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/LeastSquares2QuadraticProgramming_Convexity)
 * Lecture 4 - [Polytopes, V and H-representation](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/H_representation)
 * Lecture 5 - [Linear Programming](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Linear_Programming)
-
-* Lecture 6 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/QCQP_SOCP
+* Lecture 6 - [QCQP, Second-order cone program](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/QCQP_SOCP)
+* 
 * Lecture 7 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/SDP
 * Lecture 8 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MICP
 * Lecture 9 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/BarrierFunctions
@@ -20,6 +20,7 @@
 * Lecture 4, part 1 (Convex domains, Convex functions, Convex optimization) - https://youtu.be/sBtbFg8fdmA
 * Lecture 4, part 2 (H-representation) - https://youtu.be/xPvEJ3roZW4
 * Lecture 5, Linear Programming - https://youtu.be/9GU4f8O-GX4
+* Lecture 6, QCQP, Second-order cone program - https://youtu.be/VlxSfOiYHgA
 
 # Reference material
 
