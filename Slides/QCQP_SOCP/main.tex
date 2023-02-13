@@ -4,7 +4,7 @@
 
 
 \title{Quadratically constrained quadratic programming, \\ Second-order cone programming}
-\subtitle{Computational Intelligence, Lecture 9}
+\subtitle{Computational Intelligence, Lecture 6}
 \author{by Sergei Savin}
 \centering
 \date{\mydate}
@@ -19,19 +19,16 @@
 
 \begin{itemize}
 \item  Quadratic programming: recap
-\item  Quadratically constrained quadratic programming
-\begin{itemize}
-    \item General form
-    \item Domain
-\end{itemize}
+\item  Quadratically constrained quadratic programming (QCQP)
+	\begin{itemize}
+		\item  QCQP to LP; QCQP to LP
+		\item  Ellipsoidal constraints $\rightarrow$ to canonical form
+	\end{itemize}
 \item  Second-order cone programming
-\begin{itemize}
-    \item General form
-    \item Special cases
-    \item Friction cone
-    \item Friction cone, solution
-\end{itemize}
-\item Homework
+	\begin{itemize}
+		\item  SOCP to QCQP
+		\item  Second-order cone constraints $\rightarrow$ to canonical form
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -126,7 +123,7 @@ Set $\mathbf{P}_i = \mathbf{0}$ and you get a QP.
     \end{bmatrix} 
     \mathbf{x} \leq
     \begin{bmatrix} 
-    r_1 \\ ... \\ r_n
+    -r_1 \\ ... \\ -r_n
     \end{bmatrix} \\
     \mathbf{F}\mathbf{x} = \mathbf{g}.
     \end{cases}
@@ -136,6 +133,71 @@ Set $\mathbf{P}_i = \mathbf{0}$ and you get a QP.
 Set $\mathbf{P}_0 = \mathbf{0}$ and you get an LP.
 
 \end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Turning ellipsoid to the canonical form (1)}
+	% \framesubtitle{General form}
+	\begin{flushleft}
+		
+		Can we re-write the expression $\mathbf{x}^\top \mathbf{P} \mathbf{x} + \mathbf{q}^\top\mathbf{x} + r \leq 0$ as a canonical form ellipsoid:
+		
+		\begin{equation}
+			\frac{z_1^2}{m_1^2} + \frac{z_2^2}{m_2^2} + ... + 
+			\frac{z_n^2}{m_n^2} \leq 1
+		\end{equation}
+		
+		We start by proposing a substitution $\bo{x}_0 = - \frac{1}{2}\bo{P}^{-1}\bo{q}$ and $-d = r - \bo{x}_0\T \bo{P} \bo{x}_0$. We can prove that: $(\bo{x} - \bo{x}_0)\T \bo{P}(\bo{x} - \bo{x}_0) - d^2 =
+		\mathbf{x}^\top \mathbf{P} \mathbf{x} + \mathbf{q}^\top\mathbf{x} + r$
+		
+		\begin{align}
+			(\bo{x} - \bo{x}_0)\T \bo{P}(\bo{x} - \bo{x}_0) - d^2 =
+			\\
+			= \bo{x}\T\bo{P}\bo{x} - 2\bo{x}_0\T\bo{P}\bo{x} + \bo{x}_0\T\bo{P}\bo{x}_0 - d^2 &=
+			\\
+			= \bo{x}\T\bo{P}\bo{x} + 2\left(\textcolor{mydarkblue}{\frac{1}{2}\bo{P}^{-1}\bo{q}}\right)\T\bo{P}\bo{x} + \bo{x}_0\T\bo{P}\bo{x}_0 + \textcolor{mydarkblue}{r - \bo{x}_0\T \bo{P} \bo{x}_0} &=
+			\\
+			= \bo{x}\T\bo{P}\bo{x} + \bo{q}\T \bo{x} + r. \ \ \qed
+		\end{align}
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{Turning ellipsoid to the canonical form (1)}
+	% \framesubtitle{General form}
+	\begin{flushleft}
+		
+		Thus our original expression became:
+		%
+		\begin{align}
+			(\bo{x} - \bo{x}_0)\T \bo{P}(\bo{x} - \bo{x}_0) - d^2 \leq 0
+		\end{align}
+	%
+		We define $\bo{A} = \sqrt{\bo{P}}$ and give its SVD $\bo{A} = \bo{U} \Sigma \bo{V}\T$. Defining $\bo{z} = \bo{V}\T (\bo{x} - \bo{x}_0)$ we get:
+	%
+	\begin{align}
+		(\bo{x} - \bo{x}_0)\T \bo{A}\T\bo{A}(\bo{x} - \bo{x}_0) - d^2 \leq 0 
+		\\
+		(\bo{x} - \bo{x}_0)\T  \bo{V} \Sigma \bo{U}\T  \bo{U} \Sigma \bo{V}\T(\bo{x} - \bo{x}_0) - d^2 \leq 0 
+		\\
+		(\bo{x} - \bo{x}_0)\T  \bo{V} \Sigma^2 \bo{V}\T(\bo{x} - \bo{x}_0) - d^2 \leq 0
+		\\
+		\bo{z}\T   \Sigma^2 \bo{z} - d^2 \leq 0
+		\\
+		\sum z_i^2 \sigma_i^2  \leq d^2
+	\end{align}
+%
+Defining $1/m_i^2 = \sigma_i^2 / d^2$ we get:
+%
+\begin{equation}
+	\frac{z_1^2}{m_1^2} + \frac{z_2^2}{m_2^2} + ... + 
+	\frac{z_n^2}{m_n^2} \leq 1
+\end{equation}
+		
+	\end{flushleft}
 \end{frame}
 
 
@@ -182,7 +244,7 @@ LP, QP and QCQP are subsets of SOCP.
 			\mathbf{c}^\top \mathbf{x} + d
 		\end{equation}
 		
-		Let us consider a special case when $\mathbf{x} \in \R^n$, $\text{rank}\left(\begin{bmatrix}
+		Let us consider a special case when $\mathbf{x} \in \R^n$, $\mathbf{A} \in \R^{(n-1) \times n}$ and $\text{rank}\left(\begin{bmatrix}
 			\mathbf{A} \\ \mathbf{c}^\top
 		\end{bmatrix}\right) = n$. Then we can introduce the following substitution:
 		
@@ -383,7 +445,7 @@ Let $\bo{f}$ be total reaction force, $\bo{f}_n$ be its normal component (perpen
 \framesubtitle{Friction cone}
 \begin{flushleft}
 
-Defining $\bo{E}_t = [\mathbf{e}_{t, 1}, \ \mathbf{e}_{t, 2}] = \mathcal{L}(\mathbf{e}_n)$ be an orthonormal basis in the tangential space to the surface, we can write:
+Defining $\bo{E}_t = [\mathbf{e}_{t, 1}, \ \mathbf{e}_{t, 2}] = \text{null}(\mathbf{e}_n\T)$ be an orthonormal basis in the tangential space to the surface, we can write:
 %
 \begin{align*}
 \label{friction_cone}
@@ -423,21 +485,8 @@ Implement a program that finds right-most point of an intersection of two ellips
 
 
 
-\begin{frame}
-	\centerline{Lecture slides are available via Moodle.}
-	\bigskip
-	\centerline{You can help improve these slides at:}
-	\centerline{
-		\mygit
-	}
-	\bigskip
-	
-	\textcolor{black}{\qrcode[height=1.5in]{https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2022}}
-	\bigskip
-	
-	
-	\centerline{Check Moodle for additional links, videos, textbook suggestions.}
-\end{frame}
+
+\myqrframe
 
 
 

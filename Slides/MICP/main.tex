@@ -30,7 +30,7 @@
 
 
 \begin{frame}{Mixed Integer Linear Programming (MILP)}
-\framesubtitle{General form}
+%\framesubtitle{General form}
 \begin{flushleft}
 
 A general form of a mixed-integer linear program is:
@@ -61,37 +61,29 @@ In other words, the only difference is that some of the variables (denoted above
 
 
 
-\begin{frame}{Mixed Integer Quadratic Programming (MIQP)}
-\framesubtitle{General form}
+\begin{frame}{Mixed Integer Convex Programming (MICP)}
+%\framesubtitle{General form}
 \begin{flushleft}
 
-A general form of a mixed-integer quadratic program is:
+A general form of a mixed-integer convex program is:
 
 %
 \begin{equation} \label{QP}
 \begin{aligned}
 & \underset{\mathbf{x}}{\text{minimize}}
 & & 
-\mathbf{x}^\top
-\mathbf{H}
-\mathbf{x} +
-\mathbf{f}^\top
-\mathbf{x} , \\
+l(\mathbf{x}) \ \ \ \ \textcolor{mylightgray}{\text{convex cost}} \\
 & \text{subject to}
 & & \begin{cases} 
-\mathbf{A} \mathbf{x}
-\leq 
-\mathbf{b}, \\ 
+g(\mathbf{x}) \leq 0, &\ \ \ \ \textcolor{mylightgray}{\text{convex domain}} \\ 
 \mathbf{C}\mathbf{x} = 
-\mathbf{d},  \\
-\mathbf{x}_1, ..., \mathbf{x}_m \in \mathbb{R},\\
-\mathbf{x}_{m+1}, ..., \mathbf{x}_n \in \mathbb{N}.
+\mathbf{d},  &\\
+x_1, ..., x_m \in \mathbb{R}, &\ \ \ \ \textcolor{mylightgray}{\text{continuous variables}}\\
+x_{m+1}, ..., x_n \in \mathbb{N}. &\ \ \ \ \textcolor{mylightgray}{\text{integer variables}}
 \end{cases}
 %
 \end{aligned}
 \end{equation}
- 
-Other mixed-integer convex programs can be constructed likewise  from their pure convex counterparts.
  
 \end{flushleft}
 \end{frame}
@@ -380,20 +372,6 @@ Implement footstep planning for a biped, making sure every pair of steps lands i
 
 
 
-\begin{frame}
-	\centerline{Lecture slides are available via Moodle.}
-	\bigskip
-	\centerline{You can help improve these slides at:}
-	\centerline{
-		\mygit
-	}
-	\bigskip
-	
-	\textcolor{black}{\qrcode[height=1.5in]{https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2022}}
-	\bigskip
-	
-	
-	\centerline{Check Moodle for additional links, videos, textbook suggestions.}
-\end{frame}
+\myqrframe
 
 \end{document}
