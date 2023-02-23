@@ -3,8 +3,8 @@
 \input{settings.tex}
 
 
-\title{ Minimax }
-\subtitle{Computational Intelligence, Lecture 10}
+\title{ Worst case scenario optimization }
+\subtitle{Computational Intelligence, Lecture 9}
 \author{by Sergei Savin}
 \centering
 \date{\mydate}
@@ -19,10 +19,11 @@
 \begin{frame}{Content}
 
 \begin{itemize}
- \item MiniMax problems
- \item MiniMax: Linear constraint
- \item MiniMax: Quadratic constraint
-% \item Control with parameter uncertainty
+ \item Worst case scenario problems
+ \item Worst case scenario: Linear constraint
+ \item Worst case scenario: Quadratic constraint
+ \item Max over norm of a sum of vectors
+ \item Worst case scenario: Conic constraint
 \item Homework
 \end{itemize}
 
@@ -30,7 +31,7 @@
 
 
 
-\begin{frame}{MiniMax problems}
+\begin{frame}{Worst case scenario problems}
 \framesubtitle{Example}
 \begin{flushleft}
 
@@ -44,9 +45,8 @@ Find smallest $x \in \R$, such that $x + y \geq 1$, where $|y| \leq 2$.
 
 In that example we need to find optimal value of $x$ subject to a constraint where another unknown variable is present; the solution we find has to satisfy the constraint for any allowed value of $y$. The solution here is $x = 3$
 
-\bigskip
-
-This is closely related to \emph{minimax optimization}
+%\bigskip
+%This is closely related to \emph{minimax optimization}
  
 \end{flushleft}
 \end{frame}
@@ -55,8 +55,8 @@ This is closely related to \emph{minimax optimization}
 
 
 
-\begin{frame}{MiniMax: Linear constraint}
-\framesubtitle{Part 1}
+\begin{frame}{Worst case scenario: Linear constraint}
+%\framesubtitle{Part 1}
 \begin{flushleft}
 
 Consider the following problem:
@@ -71,21 +71,23 @@ Consider the following problem:
 \end{aligned}
 \end{equation}
 
-It is clear that worst-case scenario corresponds to the largest value of $\bo{d}^\top \bo{y}$, meaning that $\bo{y}$ should align with $\bo{d}$ and have its maximum possible length $p$. From that we conclude that $\bo{y} =  p \frac{\bo{d}}{|| \bo{d} ||} $.
+It is clear that worst-case scenario corresponds to the largest value of $\bo{d}^\top \bo{y}$. We note that $\text{max}(\bo{d}^\top \bo{y}) = \text{max}(||\bo{d}|| \cdot ||\bo{y}|| \cdot \text{cos}(\bo{d}^\wedge \bo{y})) =  ||\bo{d}|| p$; hence $\bo{y} =  p \frac{\bo{d}}{|| \bo{d} ||} $.
+
+%$\bo{y}$ should align with $\bo{d}$ and have its maximum possible length $p$. From that we conclude th/at 
  
 \end{flushleft}
 \end{frame}
 
 
 
-\begin{frame}{MiniMax: Linear constraint}
-\framesubtitle{Part 2}
+\begin{frame}{Worst case scenario: Linear constraint}
+%\framesubtitle{Part 2}
 \begin{flushleft}
 
-Therefor $\bo{c}^\top \bo{x} + \bo{d}^\top \bo{y} \leq h$ becomes:
+Therefore $\bo{c}^\top \bo{x} + \bo{d}^\top \bo{y} \leq h$ becomes:
 
 \begin{align}
-    \bo{c}^\top \bo{x} + p  \frac{\bo{d}^\top\bo{d}}{|| \bo{d} ||} \leq h \\
+%    \bo{c}^\top \bo{x} + p  \frac{\bo{d}^\top\bo{d}}{|| \bo{d} ||} \leq h \\
     \bo{c}^\top \bo{x} + p || \bo{d} || \leq h 
 \end{align}
 
@@ -107,8 +109,8 @@ Thus our problem becomes:
 
 
 
-\begin{frame}{MiniMax: Quadratic constraint, type 1}
-\framesubtitle{Part 1}
+\begin{frame}{Quadratic constraint, type 1}
+%\framesubtitle{Part 1}
 \begin{flushleft}
 
 Consider the following problem, where $\bo{x}^*$ is the desired value of $\bo{x}$:
@@ -137,8 +139,8 @@ This time worst-case scenario corresponds to $\bo{y}$ aligned with $\bo{D} \bo{x
 
 
 
-\begin{frame}{MiniMax: Quadratic constraint, type 1}
-\framesubtitle{Part 2}
+\begin{frame}{Quadratic constraint, type 1}
+%\framesubtitle{Part 2}
 \begin{flushleft}
 
 Thus our problem becomes:
@@ -159,8 +161,8 @@ which is an SOCP.
 
 
 
-\begin{frame}{MiniMax: Quadratic constraint, type 2}
-\framesubtitle{Part 1}
+\begin{frame}{Quadratic constraint, type 2}
+%\framesubtitle{Part 1}
 \begin{flushleft}
 
 A more general case of the previous problem is:
@@ -195,8 +197,8 @@ With that we see that the worse case scenario is $\bo{y}$ is aligned with $\bo{D
 
 
 
-\begin{frame}{MiniMax: Quadratic constraint, type 2}
-\framesubtitle{Part 2}
+\begin{frame}{Quadratic constraint, type 2}
+%\framesubtitle{Part 2}
 \begin{flushleft}
 
 Then $\bo{y}^\top \bo{D} (\bo{x} - \bo{b}) - \bo{a}^\top \bo{D} (\bo{x} - \bo{b}) \leq h$ becomes:
@@ -221,8 +223,8 @@ which is an SOCP constraint.
 
 
 
-\begin{frame}{MiniMax: Quadratic constraint, type 2}
-\framesubtitle{Part 2}
+\begin{frame}{Quadratic constraint, type 2}
+%\framesubtitle{Part 2}
 \begin{flushleft}
 
 And thus we get:
@@ -246,8 +248,8 @@ which is SOCP.
 
 
 
-\begin{frame}{MiniMax: Quadratic constraint, type 3}
-\framesubtitle{Part 1}
+\begin{frame}{Quadratic constraint, type 3}
+%\framesubtitle{Part 1}
 \begin{flushleft}
 
 A more general case of the previous problem is:
@@ -283,8 +285,8 @@ meaning $\bo{y} = \bo{H}^{-1}(\bo{v} -\bo{f})$:
 
 
 
-\begin{frame}{MiniMax: Quadratic constraint, type 3}
-\framesubtitle{Part 2}
+\begin{frame}{Quadratic constraint, type 3}
+%\framesubtitle{Part 2}
 \begin{flushleft}
 
 We can introduce notation:
@@ -319,7 +321,7 @@ And now we formulated type 3 problem as type 2:
 
 
 
-\begin{frame}{MiniMax: Quadratic constraint, type 4}
+\begin{frame}{Quadratic constraint, type 4}
 % \framesubtitle{Part 2}
 \begin{flushleft}
 
@@ -631,43 +633,6 @@ Try solving this problem on your own:
 
 
 
-
-
-
-
-
-
-
-
-% \begin{frame}{Homework}
-% % \framesubtitle{Parameter estimation}
-% \begin{flushleft}
-
-
-% \end{flushleft}
-% \end{frame}
-
-
-
-
-
-\begin{frame}
-	\centerline{Lecture slides are available via Moodle.}
-	\bigskip
-	\centerline{You can help improve these slides at:}
-	\centerline{
-		\mygit
-	}
-	\bigskip
-	
-	\textcolor{black}{\qrcode[height=1.5in]{https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2022}}
-	\bigskip
-	
-	
-	\centerline{Check Moodle for additional links, videos, textbook suggestions.}
-\end{frame}
-
-
 \begin{frame}{Max over norm of a sum of vectors}
 %	\framesubtitle{Part 1}
 	\begin{flushleft}
@@ -677,7 +642,7 @@ Try solving this problem on your own:
 		\begin{equation}
 			|| \bo{a} + \bo{x} || = 
 			\sqrt{(\bo{a} + \bo{x})^\top (\bo{a} + \bo{x})} = 
-			\bo{a}^\top\bo{a} + 2\bo{a}^\top\bo{x} + \bo{x}^\top\bo{x}
+			\sqrt{\bo{a}^\top\bo{a} + 2\bo{a}^\top\bo{x} + \bo{x}^\top\bo{x}}
 		\end{equation}
 	
 	If $\bo{a}$ is a constant, then the expression $\bo{a}^\top\bo{a} + 2\bo{a}^\top\bo{x} + \bo{x}^\top\bo{x}$ attains a maximum when $\bo{x}^\top\bo{x} = p^2$ and $\bo{a}^\top\bo{x} = ||\bo{a}||p$. This implies that:
@@ -695,8 +660,8 @@ Try solving this problem on your own:
 \end{frame}
 
 
-\begin{frame}{MiniMax: Conic constraint}
-	\framesubtitle{Part 1}
+\begin{frame}{Worst case scenario: Conic constraint}
+%	\framesubtitle{Part 1}
 	\begin{flushleft}
 		
 		Consider the following problem:
@@ -727,8 +692,8 @@ Try solving this problem on your own:
 
 
 
-\begin{frame}{MiniMax: Conic constraint}
-	\framesubtitle{Part 2}
+\begin{frame}{Worst case scenario: Conic constraint}
+%	\framesubtitle{Part 2}
 	\begin{flushleft}
 		
 		Continue the derivation:
@@ -751,11 +716,11 @@ Try solving this problem on your own:
 			\end{aligned}
 		\end{equation}
 		
-		
-		
 	\end{flushleft}
 \end{frame}
 
+
+\myqrframe
 
 
 \end{document}

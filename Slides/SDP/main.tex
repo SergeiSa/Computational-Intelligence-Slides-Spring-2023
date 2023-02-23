@@ -3,8 +3,8 @@
 \input{settings.tex}
 
 
-\title{Semidefinite Programming, }
-\subtitle{Computational Intelligence, Lecture 11}
+\title{Semidefinite Programming}
+\subtitle{Computational Intelligence, Lecture 7}
 \author{by Sergei Savin}
 \centering
 \date{\mydate}
@@ -19,18 +19,16 @@
 
 \begin{itemize}
 \item  Semidefinite Programming (SDP)
-\begin{itemize}
-    \item General form
-    \item Multiple LMI
-    \item SDP decision variable
-\end{itemize}
-\item  Example 1:  Continuous Lyapunov equation as an SDP/LMI
-\item  Example 2:  Discrete Lyapunov equation as an SDP/LMI
-\item  Example 3:  LMI Controller design for continuous LTI
+\item  Schur compliment
+\item  SOCP as SDP
+\item  Eigenvalues
+\item  Continuous Lyapunov equation as an SDP/LMI
+\item  Discrete Lyapunov equation as an SDP/LMI
+%\item  Example 3:  LMI Controller design for continuous LTI
 \item How to describe an ellipsoid
 \item Volume of an ellipsoid
 \item Inscribed ellipsoid algorithms
-\item Homework
+%\item Homework
 \end{itemize}
 \end{frame}
 
@@ -114,8 +112,8 @@ Sometimes it is easier to directly think of semidefinite matrices as of decision
 & & f(\mathbf{X}), \\
 & \text{subject to}
 & & \begin{cases}
-    \mathbf{X} \preceq 0, \\
-    \mathbf{g}(\mathbf{X}) = \mathbf{0}.
+     \mathbf{A}\mathbf{X} +  \mathbf{B} \preceq 0, \\
+     \mathbf{C}\mathbf{X} = \mathbf{D}.
     \end{cases}
 \end{aligned}
 \end{equation}
@@ -127,8 +125,152 @@ where cost and constraints should adhere to SDP limitations.
 
 
 
-\begin{frame}{Ex. 1: Continuous Lyapunov eq. as SDP/LMI}
-\framesubtitle{Mathematical formulation}
+
+\begin{frame}{Schur compliment}
+	%	\framesubtitle{Part 1}
+	\begin{flushleft}
+		
+		Schur compliment. Given $\bo{M}$
+		
+		\begin{equation}
+			\bo{M} = 
+			\begin{bmatrix}
+				\bo{A} & \bo{B} \\
+				\bo{B}^\top & \bo{C}
+			\end{bmatrix}
+		\end{equation}
+		
+		with full-rank $\bo{A}$, we can make the following statements:
+		
+		\begin{itemize}
+			\item $\bo{M} \succ 0$ iff $\bo{A} \succ 0$ and $\bo{C} - \bo{B}^\top\bo{A}^{-1}\bo{B} \succ 0$
+			\item $\bo{A} \succ 0 \implies$ $\bo{M} \succeq 0$ iff $\bo{C} - \bo{B}^\top\bo{A}^{-1}\bo{B} \succeq 0$
+		\end{itemize}
+		
+		\bigskip
+		
+		If $\bo{C}$ is full-rank, we can make the following statements:
+		
+		\begin{itemize}
+			\item $\bo{M} \succ 0$ iff $\bo{C} \succ 0$ and $\bo{A} - \bo{B}\bo{C}^{-1}\bo{B}^\top \succ 0$
+			\item $\bo{C} \succ 0 \implies$ $\bo{M} \succeq 0$ iff $\bo{A} - \bo{B}\bo{C}^{-1}\bo{B}^\top \succeq 0$
+		\end{itemize}		
+		
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{SOCP as SDP}
+%	\framesubtitle{Part 1}
+	\begin{flushleft}
+		
+		Let us prove that SOCP is a sub-set of SDP. SOC constraint is:
+		
+		\begin{equation}
+			||\bo{A}\bo{x} + \bo{b}|| \leq \bo{c}^\top \bo{x} + d
+		\end{equation}
+		%
+		where $\bo{c}^\top \bo{x} + d \geq 0$, and we can rewrite the SOC as: $(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b}) = (\bo{c}^\top \bo{x} + d)^2$, and assuming $\bo{c}^\top \bo{x} + d > 0$ we can write it as:
+		
+		\begin{equation}
+			\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{\bo{c}^\top \bo{x} + d} \leq \bo{c}^\top \bo{x} + d
+		\end{equation}
+		
+		which is equivalent to:
+		
+		\begin{equation}
+			-\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{-(\bo{c}^\top \bo{x} + d)} \leq \bo{c}^\top \bo{x} + d
+		\end{equation}
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+
+\begin{frame}{SOCP as SDP}
+%	\framesubtitle{Part 2}
+	\begin{flushleft}
+		
+		Note that $-\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{-(\bo{c}^\top \bo{x} + d)} \leq \bo{c}^\top \bo{x} + d$ is equivalent to:
+		
+		\begin{equation}
+			\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{-(\bo{c}^\top \bo{x} + d)} + (\bo{c}^\top \bo{x} + d) \geq 0
+		\end{equation}
+		
+		Using Schur we can re-write it as:
+		
+		\begin{equation}
+			\begin{bmatrix}
+				(\bo{c}^\top \bo{x} + d) & (\bo{A}\bo{x} + \bo{b}) \\
+				(\bo{A}\bo{x} + \bo{b})^\top & (\bo{c}^\top \bo{x} + d)
+			\end{bmatrix} \succeq 0
+		\end{equation}
+		
+		which is an LMI constraint.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{norm and SDP}
+%	\framesubtitle{Unit sphere transformation}
+	\begin{flushleft}
+		
+		Consider the following constraint, where $\bo{X} \succeq 0$:
+		
+		\begin{equation}
+			\label{eq:norm_LMI}
+			||\bo{X}\bo{v} + \bo{b}|| \leq \bo{c}^\top \bo{x} + d
+		\end{equation}
+		
+		Can we re-write it as an LMI? Using the same process as before we get:
+		
+		\begin{align}
+			\begin{bmatrix}
+	(\bo{c}^\top \bo{x} + d) & (\bo{X}\bo{v} + \bo{b}) \\
+	(\bo{X}\bo{v} + \bo{b})^\top & (\bo{c}^\top \bo{x} + d)
+		\end{bmatrix} \succeq 0
+		\end{align}
+	
+		So, \eqref{eq:norm_LMI} is an admissible constraint in an SDP.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{SDP and eigenvalues}
+	\begin{flushleft}
+		
+		Consider the problem: minimize the largest eigenvalue of $A$. The solution is:
+		
+		\begin{equation}
+			\begin{aligned}
+				& \underset{\bo{A}, t}{\text{minimize}}
+				& & t, \\
+				& \text{subject to}
+				& & \bo{A} \preceq t\bo{I}
+			\end{aligned}
+		\end{equation}
+		
+		Proof. If $\lambda$ is an eigenvalue of $\bo{A}$, then $\bo{A} \bo{v} = \lambda\bo{v}$, hence $(\bo{A} - t\bo{I}) \bo{v} = (\lambda - t)\bo{v}$, meaning $\lambda - t$ is eigenvalue of $(\bo{A} - t\bo{I})$. Thus, if $(\bo{A} - t\bo{I})$ is negative semi-definite, then $\lambda - t \leq 0$ and $\lambda \leq t$. \qed
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+\begin{frame}{Continuous Lyapunov eq. as SDP/LMI (1)}
+%\framesubtitle{Mathematical formulation}
 \begin{flushleft}
 
 In control theory, Lyapunov equation is a condition of whether or not a continuous LTI system $\dot{\mathbf{x}} = \mathbf{A}\mathbf{x}$ is stable:
@@ -161,8 +303,8 @@ where $\mathbf{Q} \succeq 0$ is a constant and decision variable is $\mathbf{P}$
 
 
 
-\begin{frame}{Ex. 1: Continuous Lyapunov eq. as SDP/LMI}
-\framesubtitle{Code}
+\begin{frame}{Continuous Lyapunov eq. as SDP/LMI (2)}
+%\framesubtitle{Code}
 \begin{flushleft}
 
 \input{code1}
@@ -173,8 +315,8 @@ where $\mathbf{Q} \succeq 0$ is a constant and decision variable is $\mathbf{P}$
 
 
 
-\begin{frame}{Ex. 2: Discrete Lyapunov eq. as SDP/LMI}
-\framesubtitle{Mathematical formulation}
+\begin{frame}{Discrete Lyapunov eq. as SDP/LMI (1)}
+%\framesubtitle{Mathematical formulation}
 \begin{flushleft}
 
 In control theory, Discrete Lyapunov equation is a condition of whether or not a discrete LTI system $\mathbf{x}_{i+1} = \mathbf{A}\mathbf{x}_i$ is stabilizable:
@@ -206,8 +348,8 @@ where $\mathbf{Q} \succeq 0$ is a constant and decision variable is $\mathbf{P}$
 
 
 
-\begin{frame}{Ex. 2: Discrete Lyapunov eq. as SDP/LMI}
-\framesubtitle{Code}
+\begin{frame}{Discrete Lyapunov eq. as SDP/LMI (2)}
+%\framesubtitle{Code}
 \begin{flushleft}
 
 \input{code2}
@@ -218,46 +360,44 @@ where $\mathbf{Q} \succeq 0$ is a constant and decision variable is $\mathbf{P}$
 
 
 
-
-\begin{frame}{Ex. 3: Control design for CT-LTI}
-\framesubtitle{Mathematical formulation}
-\begin{flushleft}
-
-For an LTI system of the form $\dot{\mathbf{x}} = \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}$ there is an LMI condition to determine if it can be stabilized:
-
-\begin{equation}
-    \begin{cases}
-        \mathbf{A}\mathbf{P} + \mathbf{P}     \mathbf{A}^\top + \mathbf{B}\mathbf{L} + \mathbf{L}^\top\mathbf{B}^\top + \mathbf{Q} \preceq 0 \\
-        \mathbf{P} \succeq 0
-    \end{cases}
-\end{equation}
 %
-where $\mathbf{Q} \succeq 0$ is a constant and decision variables are $\mathbf{P}$ and $\mathbf{L}$. 
-
-\bigskip
-
-This gives as a direct way to calculate linear feedback controller $\mathbf{u} = \mathbf{K}\mathbf{x}$ (note the sign!) gains:
-
-\begin{equation}
-    \mathbf{K} = \mathbf{L}\mathbf{P}^{-1}
-\end{equation}
-
-\end{flushleft}
-\end{frame}
-
-
-
-
-\begin{frame}{Ex. 3: Control design for CT-LTI, Code}
-% \framesubtitle{Code}
-\begin{flushleft}
-
-\input{code3}
-
-\end{flushleft}
-\end{frame}
-
-
+%\begin{frame}{Ex. 3: Control design for CT-LTI (1)}
+%%\framesubtitle{Mathematical formulation}
+%\begin{flushleft}
+%
+%For an LTI system of the form $\dot{\mathbf{x}} = \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}$ there is an LMI condition to determine if it can be stabilized:
+%
+%\begin{equation}
+%    \begin{cases}
+%        \mathbf{A}\mathbf{P} + \mathbf{P}     \mathbf{A}^\top + \mathbf{B}\mathbf{L} + \mathbf{L}^\top\mathbf{B}^\top + \mathbf{Q} \preceq 0 \\
+%        \mathbf{P} \succeq 0
+%    \end{cases}
+%\end{equation}
+%%
+%where $\mathbf{Q} \succeq 0$ is a constant and decision variables are $\mathbf{P}$ and $\mathbf{L}$. 
+%
+%\bigskip
+%
+%This gives as a direct way to calculate linear feedback controller $\mathbf{u} = \mathbf{K}\mathbf{x}$ (note the sign!) gains:
+%
+%\begin{equation}
+%    \mathbf{K} = \mathbf{L}\mathbf{P}^{-1}
+%\end{equation}
+%
+%\end{flushleft}
+%\end{frame}
+%
+%
+%
+%
+%\begin{frame}{Ex. 3: Control design for CT-LTI (2)}
+%% \framesubtitle{Code}
+%\begin{flushleft}
+%
+%\input{code3}
+%
+%\end{flushleft}
+%\end{frame}
 
 
 
@@ -305,8 +445,9 @@ So, we can describe the exact same ellipsoid using an alternative formula:
 
 
 
-\begin{frame}{Volume of an ellipsoid}
-\framesubtitle{Part 1}
+
+\begin{frame}{Volume of an ellipsoid (1)}
+%\framesubtitle{Part 1}
 \begin{flushleft}
 
 For an ellipsoid of the form
@@ -320,6 +461,11 @@ the "bigger" the $\mathbf{A}$, the bigger the ellipsoid. This concept can be mad
 \bigskip
 
 Thus, maximizing the volume of this ellipsoid is the same as maximizing $\text{det}(\mathbf{A})$. Or, it is the same as \emph{minimizing} the $\text{det}(\mathbf{A}^{-1})$, since $\text{det}(\mathbf{A}^{-1}) = 1 / \text{det}(\mathbf{A})$.
+
+\bigskip
+
+Finally, note that $\text{log} \ \text{det}(\mathbf{A})$ is a concave function and $\text{log} \ \text{det}(\mathbf{A}^{-1})$  is a convex function.
+
  
 \end{flushleft}
 \end{frame}
@@ -327,8 +473,8 @@ Thus, maximizing the volume of this ellipsoid is the same as maximizing $\text{d
 
 
 
-\begin{frame}{Volume of an ellipsoid}
-\framesubtitle{Part 2}
+\begin{frame}{Volume of an ellipsoid (2)}
+%\framesubtitle{Part 2}
 \begin{flushleft}
 
 For an ellipsoid of the form
@@ -359,7 +505,7 @@ This concept can be made concrete by talking about the determinant of $\mathbf{B
 		& \text{subject to}
 		& & \begin{cases}
 			\mathbf{B} \succeq 0, \\
-			|| \mathbf{B} \bo{v}_i + \mathbf{c} || \leq 0.
+			|| \mathbf{B} \bo{v}_i + \mathbf{c} || \leq 1.
 		\end{cases}
 	\end{aligned}
 \end{equation}
@@ -371,7 +517,7 @@ The solution gives us L\"owner-John ellipsoid.
 
 
 
-\begin{frame}{Max volume inscribed ellipsoid, 1}
+\begin{frame}{Max volume inscribed ellipsoid (1)}
 	\begin{flushleft}
 		
 		Consider the problem: given H-polytope, defined by its half-spaces $\bo{a}_i^\top \bo{x} \leq b_i$, find maximum-volume ellipsoid $\mathcal{E}$ contained in the polytope. We will start with defining the ellipsoid as $\mathcal{E} = \{ \bo{C}\bo{x} + \bo{d}: \ || \bo{x} || \leq 1 \}$. The ellipsoid is larger when $|| \mathbf{C} ||$ is bigger, and thus we can write the minimization as minimizing $\text{det} (\mathbf{C}^{-1}) $.
@@ -395,7 +541,7 @@ The solution gives us L\"owner-John ellipsoid.
 
 
 
-\begin{frame}{Max volume inscribed ellipsoid, 2}
+\begin{frame}{Max volume inscribed ellipsoid (2)}
 	\begin{flushleft}
 		
 		Here is the resulting problem:
@@ -448,137 +594,11 @@ Implement both examples from page 2 of the \href{http://stanford.edu/class/ee363
 
 
 
-\begin{frame}
-	\centerline{Lecture slides are available via Moodle.}
-	\bigskip
-	\centerline{You can help improve these slides at:}
-	\centerline{
-		\mygit
-	}
-	\bigskip
-	
-	\textcolor{black}{\qrcode[height=1.5in]{https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2022}}
-	\bigskip
-	
-	
-	\centerline{Check Moodle for additional links, videos, textbook suggestions.}
-\end{frame}
+
+\myqrframe
 
 
 
-
-\begin{frame}{Appendix A}
-%	\framesubtitle{Part 1}
-	\begin{flushleft}
-		
-		Schur compliment. Given $\bo{M}$
-		
-		\begin{equation}
-			\bo{M} = 
-			\begin{bmatrix}
-				\bo{A} & \bo{B} \\
-				\bo{B}^\top & \bo{C}
-			\end{bmatrix}
-		\end{equation}
-	
-	with full-rank $\bo{A}$, we can make the following statements:
-	
-	\begin{itemize}
-		\item $\bo{M} \succ 0$ iff $\bo{A} \succ 0$ and $\bo{C} - \bo{B}^\top\bo{A}^{-1}\bo{B} \succ 0$
-		\item $\bo{A} \succ 0 \implies$ $\bo{M} \succeq 0$ iff $\bo{C} - \bo{B}^\top\bo{A}^{-1}\bo{B} \succeq 0$
-	\end{itemize}
-
-\bigskip
-
-	If $\bo{C}$ is full-rank, we can make the following statements:
-	
-	\begin{itemize}
-	\item $\bo{M} \succ 0$ iff $\bo{C} \succ 0$ and $\bo{A} - \bo{B}\bo{C}^{-1}\bo{B}^\top \succ 0$
-	\item $\bo{C} \succ 0 \implies$ $\bo{M} \succeq 0$ iff $\bo{A} - \bo{B}\bo{C}^{-1}\bo{B}^\top \succeq 0$
-\end{itemize}		
-		
-		
-		
-	\end{flushleft}
-\end{frame}
-
-
-
-\begin{frame}{Appendix B}
-	\framesubtitle{Part 1}
-	\begin{flushleft}
-		
-		Let us prove that SOCP is a sub-set of SDP. SOC constraint is:
-		
-		\begin{equation}
-			||\bo{A}\bo{x} + \bo{b}|| \leq \bo{c}^\top \bo{x} + d
-		\end{equation}
-	%
-	where $\bo{c}^\top \bo{x} + d \geq 0$, and we can rewrite the SOC as: $(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b}) = (\bo{c}^\top \bo{x} + d)^2$, and assuming $\bo{c}^\top \bo{x} + d > 0$ we can write it as:
-	
-	\begin{equation}
-		\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{\bo{c}^\top \bo{x} + d} \leq \bo{c}^\top \bo{x} + d
-	\end{equation}
-	
-	which is equivalent to:
-	
-	\begin{equation}
-		-\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{-(\bo{c}^\top \bo{x} + d)} \leq \bo{c}^\top \bo{x} + d
-	\end{equation}
-		
-	\end{flushleft}
-\end{frame}
-
-
-
-
-
-\begin{frame}{Appendix B}
-	\framesubtitle{Part 2}
-	\begin{flushleft}
-		
-		Note that $-\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{-(\bo{c}^\top \bo{x} + d)} \leq \bo{c}^\top \bo{x} + d$ is equivalent to:
-		
-		\begin{equation}
-			\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{-(\bo{c}^\top \bo{x} + d)} + (\bo{c}^\top \bo{x} + d) \geq 0
-		\end{equation}
-		
-		Using Schur we can re-write it as:
-		
-		\begin{equation}
-			\begin{bmatrix}
-				(\bo{c}^\top \bo{x} + d) & (\bo{A}\bo{x} + \bo{b}) \\
-				(\bo{A}\bo{x} + \bo{b})^\top & (\bo{c}^\top \bo{x} + d)
-			\end{bmatrix} \succeq 0
-		\end{equation}
-		
-		which is an SDP constraint.
-		
-	\end{flushleft}
-\end{frame}
-
-
-
-
-\begin{frame}{Appendix C}
-	\begin{flushleft}
-		
-		Consider the problem: minimize the largest eigenvalue of $A$. The solution is:
-		
-		\begin{equation}
-			\begin{aligned}
-				& \underset{\bo{A}, t}{\text{minimize}}
-				& & t, \\
-				& \text{subject to}
-				& & \bo{A} \preceq t\bo{I}
-			\end{aligned}
-		\end{equation}
-		
-		Proof. If $\lambda$ is an eigenvalue of $\bo{A}$, then $\bo{A} \bo{v} = \lambda\bo{v}$, hence $(\bo{A} - t\bo{I}) \bo{v} = (\lambda - t)\bo{v}$, meaning $\lambda - t$ is eigenvalue of $(\bo{A} - t\bo{I})$. Thus, if $(\bo{A} - t\bo{I})$ is negative semi-definite, then $\lambda - t \leq 0$ and $\lambda \leq t$. \qed
-		
-		
-	\end{flushleft}
-\end{frame}
 
 
 
