@@ -21,6 +21,7 @@
 * Lecture 4, part 2 (H-representation) - https://youtu.be/xPvEJ3roZW4
 * Lecture 5, Linear Programming - https://youtu.be/9GU4f8O-GX4
 * Lecture 6, QCQP, Second-order cone program - https://youtu.be/VlxSfOiYHgA
+* Lecture 7, SDP, LMI, ellipsoids - https://youtu.be/BPpbTxbfFTc
 
 # Reference material
 
