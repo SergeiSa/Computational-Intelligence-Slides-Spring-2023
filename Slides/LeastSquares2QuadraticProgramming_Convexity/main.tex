@@ -265,13 +265,8 @@ where $\mathbf{H}$ is positive-definite and $\mathbf{A}\mathbf{x} \leq \mathbf{b
 
 
 
-\begin{frame}{Domain}
-	% \framesubtitle{Parameter estimation}
-	\begin{flushleft}
-		
-		\centerline{Domain, Convexity}
-		
-	\end{flushleft}
+\begin{frame}
+	\centerline{\huge Domain, Convexity}
 \end{frame}
 
 
@@ -477,6 +472,33 @@ where $\mathbf{H}$ is positive-definite and $\mathbf{A}\mathbf{x} \leq \mathbf{b
 
 
 
+\begin{frame}{Supporting hyperplane}
+	% \framesubtitle{Parameter estimation}
+	\begin{flushleft}
+		
+		For a convex set $\mathcal C$ and a point $\bo{x}_0$ on its boundary, if inequality $\bo{a}\T \bo{x} \leq \bo{a}\T \bo{x}_0$ holds for $\forall x \in \mathcal C$, then $\bo{a}\T \bo{x} = \bo{a}\T \bo{x}_0$ is a \emph{supporting hyperplane}.
+		
+		% TODO: \usepackage{graphicx} required
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.5\linewidth]{Supporting_hyperplane}
+			\caption{Supporting hyperplane (source: wikipedia)}
+			\label{fig:supportinghyperplane}
+		\end{figure}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}
+		\centerline{\huge Convex functions}
+\end{frame}
+
+
+
 
 \begin{frame}{Convex functions}
 	% \framesubtitle{Parameter estimation}
@@ -506,7 +528,6 @@ where $\mathbf{H}$ is positive-definite and $\mathbf{A}\mathbf{x} \leq \mathbf{b
 					\draw (560,185) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\mathbf{x_1}$};
 					\draw (675,170) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\mathbf{x_2}$};
 				\end{tikzpicture}
-				
 				\captionof{figure}{Convex function}
 			\end{minipage}%
 			\begin{minipage}{.7\textwidth}
@@ -531,7 +552,6 @@ where $\mathbf{H}$ is positive-definite and $\mathbf{A}\mathbf{x} \leq \mathbf{b
 					\draw (440,190) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\mathbf{x_1}$};
 					\draw (560,180) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\mathbf{x_2}$};
 				\end{tikzpicture}
-				
 				\captionof{figure}{Non-convex function}
 			\end{minipage}
 		\end{figure}
@@ -539,6 +559,60 @@ where $\mathbf{H}$ is positive-definite and $\mathbf{A}\mathbf{x} \leq \mathbf{b
 		
 	\end{flushleft}
 \end{frame}
+
+
+\begin{frame}{Jensen’s inequality}
+	% \framesubtitle{Parameter estimation}
+	\begin{flushleft}
+		
+		The inequality we studied:
+		%
+		\begin{equation}
+			f(\alpha \mathbf{x}_1 + (1 - \alpha) \mathbf{x}_2) \leq \alpha f(\mathbf{x}_1) + (1 - \alpha) f(\mathbf{x}_2)
+		\end{equation}
+		
+		is called \emph{Jensen’s inequality}. It can be re-written equivalently as:
+		%
+		\begin{align}
+			\begin{cases}
+				f(\alpha_1 \mathbf{x}_1 + \alpha_2 \mathbf{x}_2) \leq \alpha_1 f(\mathbf{x}_1) + \alpha_2 f(\mathbf{x}_2)
+				\\
+				\alpha_1 + \alpha_2 = 1
+			\end{cases}
+		\end{align}
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+
+\begin{frame}{Epigraph}
+	% \framesubtitle{Parameter estimation}
+	\begin{flushleft}
+		
+		Epigraph of a function $\varphi(x)$ is a set of points "above the graph":
+		%
+		\begin{equation}
+			\text{epi} (\varphi) = \{ (x, t): \ \varphi(x) \leq t \}
+		\end{equation}
+	%
+		% TODO: \usepackage{graphicx} required
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.5\linewidth]{epigraph}
+			\caption{Epigraph. \small{\href{https://www.researchgate.net/figure/Projection-onto-the-epigraph-of-a-function-ph-G-0-R_fig1_270905703}{Credit - link}.} }
+			\label{fig:epigraph}
+		\end{figure}
+		
+		Epigraph of a convex function is convex. A tangent to a function is a supporting hyperplane to its epigraph.
+		
+		
+	\end{flushleft}
+\end{frame}
+
+
 
 
 
@@ -550,8 +624,8 @@ where $\mathbf{H}$ is positive-definite and $\mathbf{A}\mathbf{x} \leq \mathbf{b
 		
 		\begin{itemize}
 			\item $f(x) = 1$
-			\item $f(x) = x$, $f(x) = x + 1$, $f(x) = 6x + 3$
-			\item $f(x) = x^2$, $f(x) = (x - 5)^2$, $f(x) = (x + 1)^2 - 10$
+			\item $f(x) = x$; $f(x) = x + 1$, $f(x) = 6x + 3$
+			\item $f(x) = x^2$; $f(x) = (x - 5)^2$; $f(x) = (x + 1)^2 - 10$
 			\item $f(x) = x^3$, if $x > 0$
 		\end{itemize}
 		
@@ -562,6 +636,10 @@ where $\mathbf{H}$ is positive-definite and $\mathbf{A}\mathbf{x} \leq \mathbf{b
 		\begin{itemize}
 			\item $f(\mathbf{x}) = \mathbf{A}\mathbf{x} + \mathbf{b}$
 			\item $f(\mathbf{x}) = \mathbf{x}^\top \mathbf{H}\mathbf{x}$, $\mathbf{H} \succ 0$ 
+			
+			\item $f(\mathbf{x}) = \text{max}(x_1, \ ... \ x_n) $.
+			\item $f(\mathbf{x}) = \text{log}(e^{x_1}+ ... +e^{x_n}) $.
+			\item $f(x, y) = \frac{x^2}{y}$.
 		\end{itemize}
 		
 	\end{flushleft}
