@@ -4,12 +4,13 @@
 * Lecture 3 - [Least Squares, Quadratic Programming, Domains, Convexity](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/LeastSquares2QuadraticProgramming_Convexity)
 * Lecture 4 - [Polytopes, V and H-representation](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/H_representation)
 * Lecture 5 - [Linear Programming](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Linear_Programming)
-* Lecture 6 - [QCQP, Second-order cone program](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/QCQP_SOCP)
-* 
-* Lecture 7 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/SDP
-* Lecture 8 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MICP
-* Lecture 9 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/BarrierFunctions
-* Lecture 10 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MiniMax
+* Lecture 6 - [QCQP, Second-Order Cone Programming](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/QCQP_SOCP)
+* Lecture 7 - [Ssemidefinite Programming, Ellipsoids](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/SDP)
+* Lecture 8 - [LMI in Control, Robust Control Design](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/LMI_Control)
+* Lecture 9 - [Mixed-Integer Convex Programming](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MICP)
+* Lecture 10 - [Robust Optimization](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MiniMax)
+* Lecture 11 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Extra_SPP
+* Lecture 11 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/BarrierFunctions
 
 # Lecture videos:
 
@@ -27,7 +28,7 @@
 # Reference material
 
 ## Textbooks:
-* Boyd, S., Boyd, S.P. and Vandenberghe, L., 2004. Convex optimization. Cambridge university press. https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf
+* Boyd, S., and Vandenberghe, L., 2004. Convex optimization. Cambridge university press. https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf
 * Kevin M.. Lynch and Park, F.C., 2017. Modern Robotics: Mechanics, Planning, and Control. Cambridge University Press. http://hades.mech.northwestern.edu/images/7/7f/MR.pdf
 * Siciliano, B., Sciavicco L. Villani L. & Oriolo G.,(2009) Robotic–Modelling, Planning and Control. https://www.academia.edu/23785978/B_Sicilliano_Robotics_Modelling_Planning_and_Control
 
@@ -39,9 +40,30 @@
     - [Minimum Norm Solutions, Math 484: Nonlinear Programming, Mikhail Lavrov](https://faculty.math.illinois.edu/~mlavrov/docs/484-spring-2019/ch4lec4.pdf)
     - [Orthogonality, Math 484: Nonlinear Programming, Mikhail Lavrov](https://faculty.math.illinois.edu/~mlavrov/docs/484-spring-2019/ch4lec3.pdf)
 
+* Least Squares
+    - Convex optimization, Least-squares and regression.
+
+* Domain
+    - Convex optimization, Chapter 2 Convex sets.
+
+* Convex functions
+    - Convex optimization, Chapter 3 Convex functions.
+    
+* Linear Programming
+    - Convex optimization, 4.3 Linear optimization problems
+
+* Quadratic Programming
+    - Convex optimization, 4.4 Quadratic optimization problems
+
 * QCQP:
     - Schur complement - https://www.cis.upenn.edu/~jean/schur-comp.pdf
 
+* SOCP
+    - Convex optimization, 4.4.2 Second-order cone programming
+
+* SDP
+    - Convex optimization, 4.6.2 Semidefinite programming
+    
 * LMI in Control:
     - Continious feedback design (+examples of dual problems) MAE598 (LMIs in Control) - https://youtu.be/iI3zRAjuG_U
     - Discrete feedback design (+examples of dual problems and Schur complement) MAE598 (LMIs in Control) - https://youtu.be/oqXvkgSN-Zc
@@ -51,6 +73,14 @@
     - [Mixed-integer support in CVX 2.0](http://cvxr.com/news/2012/08/midcp/)
     - [Footstep Planning on Uneven Terrain with Mixed-Integer Convex
 Optimization](https://groups.csail.mit.edu/robotics-center/public_papers/Deits14a.pdf)
+
+* Robust convex programming
+    - Convex optimization, Robust linear programming
+    
+
+
+
+
 
  
 
