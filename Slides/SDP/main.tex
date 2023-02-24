@@ -109,11 +109,11 @@ Sometimes it is easier to directly think of semidefinite matrices as of decision
 \begin{equation}
 \begin{aligned}
 & \underset{\mathbf{X}}{\text{minimize}}
-& & f(\mathbf{X}), \\
+& & \text{tr}(\mathbf{E}\mathbf{X}), \\
 & \text{subject to}
 & & \begin{cases}
-     \mathbf{A}\mathbf{X} +  \mathbf{B} \preceq 0, \\
-     \mathbf{C}\mathbf{X} = \mathbf{D}.
+     \text{tr}(\mathbf{A}_i\mathbf{X}) =  \mathbf{b}_i, \\
+     \mathbf{C}\mathbf{X} \preceq \mathbf{D}.
     \end{cases}
 \end{aligned}
 \end{equation}
