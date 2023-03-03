@@ -140,20 +140,18 @@ where cost and constraints should adhere to SDP limitations.
 			\end{bmatrix}
 		\end{equation}
 		
-		with full-rank $\bo{A}$, we can make the following statements:
+		with full-rank $\bo{A}$, we can make the following statement:
 		
 		\begin{itemize}
 			\item $\bo{M} \succ 0$ iff $\bo{A} \succ 0$ and $\bo{C} - \bo{B}^\top\bo{A}^{-1}\bo{B} \succ 0$
-			\item $\bo{A} \succ 0 \implies$ $\bo{M} \succeq 0$ iff $\bo{C} - \bo{B}^\top\bo{A}^{-1}\bo{B} \succeq 0$
 		\end{itemize}
 		
 		\bigskip
 		
-		If $\bo{C}$ is full-rank, we can make the following statements:
+		If $\bo{C}$ is full-rank, we can make the following statement:
 		
 		\begin{itemize}
 			\item $\bo{M} \succ 0$ iff $\bo{C} \succ 0$ and $\bo{A} - \bo{B}\bo{C}^{-1}\bo{B}^\top \succ 0$
-			\item $\bo{C} \succ 0 \implies$ $\bo{M} \succeq 0$ iff $\bo{A} - \bo{B}\bo{C}^{-1}\bo{B}^\top \succeq 0$
 		\end{itemize}		
 		
 		
@@ -199,7 +197,7 @@ where cost and constraints should adhere to SDP limitations.
 		Note that $-\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{-(\bo{c}^\top \bo{x} + d)} \leq \bo{c}^\top \bo{x} + d$ is equivalent to:
 		
 		\begin{equation}
-			\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{-(\bo{c}^\top \bo{x} + d)} + (\bo{c}^\top \bo{x} + d) \geq 0
+			-\frac{(\bo{A}\bo{x} + \bo{b})^\top (\bo{A}\bo{x} + \bo{b})}{(\bo{c}^\top \bo{x} + d)} + (\bo{c}^\top \bo{x} + d) \geq 0
 		\end{equation}
 		
 		Using Schur we can re-write it as:
