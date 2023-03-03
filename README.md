@@ -24,6 +24,8 @@
 * Lecture 6 (QCQP, Second-order cone program) - https://youtu.be/VlxSfOiYHgA
 * Lecture 7 (SDP, LMI, ellipsoids) - https://youtu.be/BPpbTxbfFTc
 * Lecture 8 (Robustness and LMI) - https://youtu.be/YcoPosPCYuE
+* Lecture 9 (Mixed Integer Convex Programming) - https://youtu.be/QDk5AF7j3Ak
+* Lecture 10 (Robust optimization) - https://youtu.be/NRj_n3BrjFM
 
 # Reference material
 
