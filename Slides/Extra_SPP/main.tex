@@ -4,7 +4,7 @@
 
 
 \title{Shortest Path Planning}
-\subtitle{Computational Intelligence, Lecture ?}
+\subtitle{Computational Intelligence, Lecture 12}
 \author{by Sergei Savin}
 \centering
 \date{\mydate}
@@ -158,6 +158,101 @@ If $x_i = 1$ the edge is part of the path. We assume that otherwise $x_i = 0$ (w
 		
 	\end{flushleft}
 \end{frame}
+
+
+
+\begin{frame}{SPP code (1)}
+	%\framesubtitle{Code}
+	\begin{flushleft}
+		
+		\input{code1}
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{SPP code (2)}
+	%\framesubtitle{Code}
+	\begin{flushleft}
+		
+		\input{code2}
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{A star search}
+	%\framesubtitle{General form}
+	\begin{flushleft}
+		
+		Another popular shortest path planning method for graphs is \emph{A star} (\emph{A*}). Unlike the previous method it does not involve optimization, but it requires a \emph{heuristic}.
+		
+		\bigskip
+		
+		To study A* we once more consider a graph whose edges have cost associated with them.
+		
+		\bigskip
+		
+		Let $p$ be a node of the graph that the program found a path to. Point $p$ has a predecessor point $a(p)$ - the last node in the path towards $p$. Since each predecessor knows its predecessor, it means we can recursively reconstruct the path from the point $p$ to the start.
+		
+	\end{flushleft}
+\end{frame}
+
+
+\begin{frame}{A star search}
+	%\framesubtitle{General form}
+	\begin{flushleft}
+		
+		Finding a path from the start to the point $p$ we construct a sequence of edges that we need to travel through - $e_1$, $e_2$, ...,  $e_n$. Each of these edges has a cost associated with them -  $c_1$, $c_2$, ...,  $c_n$. So, the cost of reaching a node $p$ is $g(p) = \sum_{i=1}^{n} c_i$.
+		
+		\bigskip
+		
+		If we have a heuristic $h(p)$ that (while more or less accurate) always \emph{underestimates} the cost to reaching goal from the node $p$, we can use A* to choose the next node in the path. We choose the node that minimizes the following cost function:
+		
+		\begin{equation}
+			p_{next} = \underset{p}{\text{argmin}} (g(p)+h(p))
+		\end{equation} 
+			
+	\end{flushleft}
+\end{frame}
+
+
+\begin{frame}{A star search - implementation}
+	%\framesubtitle{General form}
+	\begin{flushleft}
+		
+		In practice, when we can compute $g(p)$ much simpler. Given a new node $p_{next}$ and its predecessor $p_a$, and the cost associated with the edge connecting them $c_a$, we can assign the value of $g(p_{next})$ as:
+		
+		\begin{equation}
+			g(p_{next}) := g(p_a) + c_a
+		\end{equation}
+	
+		Heuristic might be difficult to formulate in general, but as long as each node has coordinates on a plane associated with it, Euclidean distance provides a suitable heuristics.
+		
+	\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}{A star search - implementation}
+	%\framesubtitle{General form}
+	\begin{flushleft}
+		
+		A grid can easily be seen as a graph, where adjacency implies connection.
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\linewidth]{a_-search-algorithm-1}
+			\caption{Example of a grid with obstacles. Credit: \bref{https://www.geeksforgeeks.org/a-search-algorithm/}{geeksforgeeks.org}}
+			\label{fig:a-search-algorithm-1}
+		\end{figure}
+		
+		
+	\end{flushleft}
+\end{frame}
+
 
 
 

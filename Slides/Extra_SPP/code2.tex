@@ -1,0 +1,14 @@
+\begin{lstlisting}[language=Matlab]
+cvx_begin
+variable x(nc, 1)
+minimize( dot(d, x) )
+subject to
+x >= zeros(nc, 1);
+x(1) + x(2) ==  1;%v 1
+-x(5) - x(6) == -1;%v 5
+
+-x(1) + x(3) + x(4) == 0;%v 2
+-x(2) - x(3) + x(5) == 0;%v 3
+-x(4) + x(6)        == 0;%v 4
+cvx_end
+\end{lstlisting}
