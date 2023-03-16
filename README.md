@@ -9,8 +9,8 @@
 * Lecture 8 - [LMI in Control, Robust Control Design](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/LMI_Control)
 * Lecture 9 - [Mixed-Integer Convex Programming](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MICP)
 * Lecture 10 - [Robust Optimization](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MiniMax)
-* Lecture 11 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Extra_SPP
-* Lecture 11 - https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/BarrierFunctions
+* Lecture 11 - [Barrier function, Sensitivity](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/BarrierFunctions)
+* Lecture 12 - [Shortest path on graphs]([Robust Optimization](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Extra_SPP))
 
 # Lecture videos:
 
@@ -26,6 +26,8 @@
 * Lecture 8 (Robustness and LMI) - https://youtu.be/YcoPosPCYuE
 * Lecture 9 (Mixed Integer Convex Programming) - https://youtu.be/QDk5AF7j3Ak
 * Lecture 10 (Robust optimization) - https://youtu.be/NRj_n3BrjFM
+* Lecture 11 (Barrier functions) - https://youtu.be/7tkD2h0rmaM
+* Lecture 12 (Shortest path on graph) - https://youtu.be/dxRQvmlAU1k
 
 # Reference material
 
@@ -79,12 +81,10 @@ Optimization](https://groups.csail.mit.edu/robotics-center/public_papers/Deits14
 * Robust convex programming
     - Convex optimization, Robust linear programming
     
+* Barrier functions, KKT conditions, interior point methods
+    - [Visually Explained, The Karush–Kuhn–Tucker (KKT) Conditions and the Interior Point Method for Convex Optimization](https://youtu.be/uh1Dk68cfWs)
 
 
-
-
-
- 
 
 # For contributors:
 
