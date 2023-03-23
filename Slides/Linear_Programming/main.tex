@@ -200,6 +200,32 @@ Their representation as LP is:
 
 
 
+\begin{frame}{Zero-infinity function}
+%	\framesubtitle{Code}
+	\begin{flushleft}
+		
+		Consider a function that returns 0 for negative inputs, and infinity for positive ones:
+		
+		\begin{equation}
+			f(x) = 
+			\begin{cases}
+				0 &x \leq 0 \\
+				\infty &x > 0
+			\end{cases}
+		\end{equation}
+	
+		We can equivalently replace it with the following piece-wise linear function:
+		
+		\begin{equation}
+			f(x) = 
+			\underset{\lambda \geq 0}{\text{max}}  \  \lambda x
+		\end{equation}		
+		
+	\end{flushleft}
+\end{frame}
+
+
+
 \begin{frame}{Chebyshev center of a polyhedron}
 \framesubtitle{Problem statement}
 \begin{flushleft}
