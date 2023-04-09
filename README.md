@@ -10,7 +10,7 @@
 * Lecture 9 - [Mixed-Integer Convex Programming](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MICP)
 * Lecture 10 - [Robust Optimization](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MiniMax)
 * Lecture 11 - [Barrier function, Sensitivity](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/BarrierFunctions)
-* Lecture 12 - [Shortest path on graphs]([Robust Optimization](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Extra_SPP))
+* Lecture 12 - [Shortest path on graphs](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Extra_SPP)
 
 # Lecture videos:
 
