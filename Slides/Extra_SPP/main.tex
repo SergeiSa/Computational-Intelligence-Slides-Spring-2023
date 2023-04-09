@@ -4,7 +4,7 @@
 
 
 \title{Shortest Path Planning}
-\subtitle{Computational Intelligence, Lecture 12}
+\subtitle{Computational Intelligence, Lecture 13}
 \author{by Sergei Savin}
 \centering
 \date{\mydate}
@@ -67,7 +67,14 @@ How can we find a shortest path from a start node to a finish node on it?
 \end{flushleft}
 \end{frame}
 
-
+\begin{frame}
+	%\framesubtitle{How do we know the state?}
+	\begin{flushleft}
+		
+		\centering{\Huge SPP as LP}
+		
+	\end{flushleft}
+\end{frame}
 
 \begin{frame}{Shortest path (1)}
 %\framesubtitle{General form}
@@ -182,6 +189,15 @@ If $x_i = 1$ the edge is part of the path. We assume that otherwise $x_i = 0$ (w
 \end{frame}
 
 
+\begin{frame}
+	%\framesubtitle{How do we know the state?}
+	\begin{flushleft}
+		
+		\centering{\Huge SPP via A* algorithm}
+		
+	\end{flushleft}
+\end{frame}
+
 
 \begin{frame}{A star search}
 	%\framesubtitle{General form}
@@ -229,7 +245,7 @@ If $x_i = 1$ the edge is part of the path. We assume that otherwise $x_i = 0$ (w
 			g(p_{next}) := g(p_a) + c_a
 		\end{equation}
 	
-		Heuristic might be difficult to formulate in general, but as long as each node has coordinates on a plane associated with it, Euclidean distance provides a suitable heuristics.
+		Heuristic might be difficult to formulate in general, but as long as each node has coordinates on a plane associated with it, Euclidean distance provides a suitable heuristic.
 		
 	\end{flushleft}
 \end{frame}
