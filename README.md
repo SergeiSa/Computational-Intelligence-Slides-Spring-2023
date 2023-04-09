@@ -5,12 +5,13 @@
 * Lecture 4 - [Polytopes, V and H-representation](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/H_representation)
 * Lecture 5 - [Linear Programming](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Linear_Programming)
 * Lecture 6 - [QCQP, Second-Order Cone Programming](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/QCQP_SOCP)
-* Lecture 7 - [Ssemidefinite Programming, Ellipsoids](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/SDP)
+* Lecture 7 - [Semidefinite Programming, Ellipsoids](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/SDP)
 * Lecture 8 - [LMI in Control, Robust Control Design](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/LMI_Control)
 * Lecture 9 - [Mixed-Integer Convex Programming](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MICP)
 * Lecture 10 - [Robust Optimization](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MiniMax)
-* Lecture 11 - [Barrier function, Sensitivity](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/BarrierFunctions)
-* Lecture 12 - [Shortest path on graphs](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Extra_SPP)
+* Lecture 11 - [Model-predictive control](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/MPC)
+* Lecture 12 - [Barrier function, Sensitivity](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/BarrierFunctions)
+* Lecture 13 - [Shortest path on graphs](https://github.com/SergeiSa/Computational-Intelligence-Slides-Spring-2023/tree/main/Slides/Extra_SPP)
 
 # Lecture videos:
 
